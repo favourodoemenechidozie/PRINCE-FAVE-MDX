@@ -10,7 +10,7 @@ const settings = {
   storeWriteInterval: 10000,
   description: "This is a bot for managing groups and giving you ultimate advantages over other mortals. Enjoy the bot and have fun.",
   version: "1.0.0",
-  updateZipUrl: "https://github.com/mruniquehacker/Knightbot-MD/archive/refs/heads/main.zip",
+  updateZipUrl: "https://github.com/favourodoemene/PRINCE-FAVE-MDX/archive/refs/heads/main.zip",
 };
 
 module.exports = settings;
