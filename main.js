@@ -1030,7 +1030,7 @@ async function handleMessages(sock, messageUpdate, printLog) {
 
             if (!groupJid.endsWith('@g.us')) {
                 return await sock.sendMessage(chatId, {
-                    text: " This command can only be used in a group."
+                    text: "This command can only be used in a group."
                 });
             }
 
@@ -1046,11 +1046,11 @@ async function handleMessages(sock, messageUpdate, printLog) {
             await addCommandReaction(sock, message);
         }
     } catch (error) {
-        console.error('❌ Error in message handler:', error.message);
+        console.error(' Error in message handler:', error.message);
         // Only try to send error message if we have a valid chatId
         if (chatId) {
             await sock.sendMessage(chatId, {
-                text: '❌ Failed to process command!',
+                text: ' Failed to process command!',
                 ...channelInfo
             });
         }
@@ -1116,7 +1116,7 @@ async function handleGroupParticipantUpdate(sock, update) {
             const groupName = groupMetadata.subject;
 
             // Use simple default goodbye message
-            const goodbyeMessage = 'Goodbye {user} 👋';
+            const goodbyeMessage = 'Goodbye {user} 👋, We’ll miss you! Take care and drop by anytime. 😊' ;
 
             // Send goodbye message for each leaving participant
             for (const participant of participants) {
