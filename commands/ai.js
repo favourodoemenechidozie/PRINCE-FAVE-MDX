@@ -1,3 +1,13 @@
+/**
+ * PRINCE FAVE MDX- A WhatsApp Bot
+ * Copyright (c) 2025 C.O TECH
+ * DO NOT COPY THIS CODE   (it will only work for this bot only)
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the MIT License.
+ * 
+ * Credits:
+ * - Baileys Library by @adiwajshing
+ */ 
 const axios = require('axios');
 const fetch = require('node-fetch');
 
@@ -7,7 +17,7 @@ async function aiCommand(sock, chatId, message) {
         
         if (!text) {
             return await sock.sendMessage(chatId, { 
-                text: "Please provide a question after .gpt or .gemini\n\nExample: .gpt write a basic html code"
+                text: "provide a question after .gpt5 or .gemini\n\nExample: .gpt write a basic html code"
             }, {
                 quoted: message
             });
@@ -20,7 +30,7 @@ async function aiCommand(sock, chatId, message) {
 
         if (!query) {
             return await sock.sendMessage(chatId, { 
-                text: "Please provide a question after .gpt or .gemini"
+                text: "Please provide a question after .gpt5 or .gemini"
             }, {quoted:message});
         }
 
@@ -30,7 +40,7 @@ async function aiCommand(sock, chatId, message) {
                 react: { text: '🤖', key: message.key }
             });
 
-            if (command === '.gpt') {
+            if (command === '.gpt5') {
                 // Call the GPT API
                 const response = await axios.get(`https://api.dreaded.site/api/chatgpt?text=${encodeURIComponent(query)}`);
                 
@@ -79,7 +89,7 @@ async function aiCommand(sock, chatId, message) {
         } catch (error) {
             console.error('API Error:', error);
             await sock.sendMessage(chatId, {
-                text: "❌ Failed to get response. Please try again later.",
+                text: "oh dang, couldn't get response. try again later.",
                 contextInfo: {
                     mentionedJid: [message.key.participant || message.key.remoteJid],
                     quotedMessage: message.message
@@ -91,7 +101,7 @@ async function aiCommand(sock, chatId, message) {
     } catch (error) {
         console.error('AI Command Error:', error);
         await sock.sendMessage(chatId, {
-            text: "❌ An error occurred. Please try again later.",
+            text: "oh dang, couldn't get response. try again later.",
             contextInfo: {
                 mentionedJid: [message.key.participant || message.key.remoteJid],
                 quotedMessage: message.message

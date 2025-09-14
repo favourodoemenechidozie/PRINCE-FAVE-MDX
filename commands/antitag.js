@@ -1,3 +1,14 @@
+/**
+ * PRINCE FAVE MDX- A WhatsApp Bot
+ * Copyright (c) 2025 C.O TECH
+ * DO NOT COPY THIS CODE   (it will only work for this bot only)
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the MIT License.
+ * 
+ * Credits:
+ * - Baileys Library by @adiwajshing
+ */ 
+
 const { setAntitag, getAntitag, removeAntitag } = require('../lib/index');
 const isAdmin = require('../lib/isAdmin');
 
@@ -13,7 +24,7 @@ async function handleAntitagCommand(sock, chatId, userMessage, senderId, isSende
         const action = args[0];
 
         if (!action) {
-            const usage = `\`\`\`ANTITAG SETUP\n\n${prefix}antitag on\n${prefix}antitag set delete | kick\n${prefix}antitag off\n\`\`\``;
+            const usage = `\`\`\`⚙️ ANTITAG CONTROL ⚙️\n\n${prefix}antitag on\n${prefix}antitag set delete | kick\n${prefix}antitag off\n\`\`\``;
             await sock.sendMessage(chatId, { text: usage },{quoted :message});
             return;
         }

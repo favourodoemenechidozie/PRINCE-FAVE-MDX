@@ -1,8 +1,13 @@
 /**
- * Knight Bot - A WhatsApp Bot
- * Autotyping Command - Shows fake typing status
+ * PRINCE FAVE MDX- A WhatsApp Bot
+ * Copyright (c) 2025 C.O TECH
+ * DO NOT COPY THIS CODE   (it will only work for this bot only)
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the MIT License.
+ * 
+ * Credits:
+ * - Baileys Library by @adiwajshing
  */
-
 const fs = require('fs');
 const path = require('path');
 

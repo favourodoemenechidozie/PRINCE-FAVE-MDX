@@ -15,7 +15,7 @@ async function banCommand(sock, chatId, message) {
     
     if (!userToBan) {
         await sock.sendMessage(chatId, { 
-            text: 'Please mention the user or reply to their message to ban!', 
+            text: 'mention the user or reply to their message to ban!', 
             ...channelInfo 
         });
         return;
@@ -29,7 +29,7 @@ async function banCommand(sock, chatId, message) {
             fs.writeFileSync('./data/banned.json', JSON.stringify(bannedUsers, null, 2));
             
             await sock.sendMessage(chatId, { 
-                text: `Successfully banned @${userToBan.split('@')[0]}!`,
+                text: ` Successfully banned @${userToBan.split('@')[0]}!`,
                 mentions: [userToBan],
                 ...channelInfo 
             });

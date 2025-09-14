@@ -1,7 +1,13 @@
 /**
- * Knight Bot - A WhatsApp Bot
- * Autoread Command - Automatically read all messages
- */
+ * PRINCE FAVE MDX- A WhatsApp Bot
+ * Copyright (c) 2025 C.O TECH
+ * DO NOT COPY THIS CODE   (it will only work for this bot only)
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the MIT License.
+ * 
+ * Credits:
+ * - Baileys Library by @adiwajshing
+ */ 
 
 const fs = require('fs');
 const path = require('path');
@@ -20,16 +26,16 @@ function initConfig() {
 // Toggle autoread feature
 async function autoreadCommand(sock, chatId, message) {
     try {
-        // Check if sender is the owner (bot itself)
+        // Restrict command to bot owner only
         if (!message.key.fromMe) {
             await sock.sendMessage(chatId, {
-                text: '❌ This command is only available for the owner!',
+                text: ' *This command is only available to the bot owner!*',
                 contextInfo: {
                     forwardingScore: 1,
                     isForwarded: true,
                     forwardedNewsletterMessageInfo: {
-                        newsletterJid: '120363161513685998@newsletter',
-                        newsletterName: 'KnightBot MD',
+                        newsletterJid: '120363225168536123@newsletter',
+                        newsletterName: 'PRINCE FAVE MDX',
                         serverMessageId: -1
                     }
                 }
@@ -45,22 +51,22 @@ async function autoreadCommand(sock, chatId, message) {
         // Initialize or read config
         const config = initConfig();
         
-        // Toggle based on argument or toggle current state if no argument
+        // Handle arguments
         if (args.length > 0) {
             const action = args[0].toLowerCase();
-            if (action === 'on' || action === 'enable') {
+            if (['on', 'enable'].includes(action)) {
                 config.enabled = true;
-            } else if (action === 'off' || action === 'disable') {
+            } else if (['off', 'disable'].includes(action)) {
                 config.enabled = false;
             } else {
                 await sock.sendMessage(chatId, {
-                    text: '❌ Invalid option! Use: .autoread on/off',
+                    text: '⚠️ Invalid option! Use: *.autoread on/off*',
                     contextInfo: {
                         forwardingScore: 1,
                         isForwarded: true,
                         forwardedNewsletterMessageInfo: {
-                            newsletterJid: '120363161513685998@newsletter',
-                            newsletterName: 'KnightBot MD',
+                            newsletterJid: '120363225168536123@newsletter',
+                            newsletterName: 'PRINCE FAVE MDX',
                             serverMessageId: -1
                         }
                     }
@@ -68,22 +74,22 @@ async function autoreadCommand(sock, chatId, message) {
                 return;
             }
         } else {
-            // Toggle current state
+            // Toggle state if no args
             config.enabled = !config.enabled;
         }
         
         // Save updated configuration
         fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
         
-        // Send confirmation message
+        // Confirmation message
         await sock.sendMessage(chatId, {
-            text: `✅ Auto-read has been ${config.enabled ? 'enabled' : 'disabled'}!`,
+            text: `✅ *Auto-read has been ${config.enabled ? 'ENABLED' : 'DISABLED'}!*`,
             contextInfo: {
                 forwardingScore: 1,
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
-                    newsletterJid: '120363161513685998@newsletter',
-                    newsletterName: 'KnightBot MD',
+                    newsletterJid: '120363225168536123@newsletter',
+                    newsletterName: 'PRINCE FAVE MDX',
                     serverMessageId: -1
                 }
             }
@@ -92,13 +98,13 @@ async function autoreadCommand(sock, chatId, message) {
     } catch (error) {
         console.error('Error in autoread command:', error);
         await sock.sendMessage(chatId, {
-            text: '❌ Error processing command!',
+            text: '*Error processing autoread command!*',
             contextInfo: {
                 forwardingScore: 1,
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
-                    newsletterJid: '120363161513685998@newsletter',
-                    newsletterName: 'KnightBot MD',
+                    newsletterJid: '120363225168536123@newsletter',
+                    newsletterName: 'PRINCE FAVE MDX',
                     serverMessageId: -1
                 }
             }
@@ -117,17 +123,16 @@ function isAutoreadEnabled() {
     }
 }
 
-// Function to check if bot is mentioned in a message
+// Detect if bot is mentioned
 function isBotMentionedInMessage(message, botNumber) {
     if (!message.message) return false;
     
-    // Check for mentions in contextInfo (works for all message types)
     const messageTypes = [
         'extendedTextMessage', 'imageMessage', 'videoMessage', 'stickerMessage',
         'documentMessage', 'audioMessage', 'contactMessage', 'locationMessage'
     ];
     
-    // Check for explicit mentions in mentionedJid array
+    // Check explicit mentions
     for (const type of messageTypes) {
         if (message.message[type]?.contextInfo?.mentionedJid) {
             const mentionedJid = message.message[type].contextInfo.mentionedJid;
@@ -137,7 +142,7 @@ function isBotMentionedInMessage(message, botNumber) {
         }
     }
     
-    // Check for text mentions in various message types
+    // Check text content mentions
     const textContent = 
         message.message.conversation || 
         message.message.extendedTextMessage?.text ||
@@ -145,14 +150,13 @@ function isBotMentionedInMessage(message, botNumber) {
         message.message.videoMessage?.caption || '';
     
     if (textContent) {
-        // Check for @mention format
         const botUsername = botNumber.split('@')[0];
         if (textContent.includes(`@${botUsername}`)) {
             return true;
         }
         
-        // Check for bot name mentions (optional, can be customized)
-        const botNames = [global.botname?.toLowerCase(), 'bot', 'knight', 'knight bot'];
+        // Customizable bot name mentions
+        const botNames = [global.botname?.toLowerCase(), 'bot', 'prince', 'prince fave', 'mdx'];
         const words = textContent.toLowerCase().split(/\s+/);
         if (botNames.some(name => words.includes(name))) {
             return true;
@@ -162,29 +166,21 @@ function isBotMentionedInMessage(message, botNumber) {
     return false;
 }
 
-// Function to handle autoread functionality
+// Handle autoread functionality
 async function handleAutoread(sock, message) {
     if (isAutoreadEnabled()) {
-        // Get bot's ID
         const botNumber = sock.user.id.split(':')[0] + '@s.whatsapp.net';
-        
-        // Check if bot is mentioned
         const isBotMentioned = isBotMentionedInMessage(message, botNumber);
         
-        // If bot is mentioned, read the message internally but don't mark as read in UI
         if (isBotMentioned) {
-            
-            // We don't call sock.readMessages() here, so the message stays unread in the UI
-            return false; // Indicates message was not marked as read
+            return false; // Don’t mark as read in UI if bot is mentioned
         } else {
-            // For regular messages, mark as read normally
             const key = { remoteJid: message.key.remoteJid, id: message.key.id, participant: message.key.participant };
             await sock.readMessages([key]);
-            //console.log('✅ Marked message as read from ' + (message.key.participant || message.key.remoteJid).split('@')[0]);
-            return true; // Indicates message was marked as read
+            return true;
         }
     }
-    return false; // Autoread is disabled
+    return false; // Disabled
 }
 
 module.exports = {

@@ -1,3 +1,13 @@
+/**
+ * PRINCE FAVE MDX- A WhatsApp Bot
+ * Copyright (c) 2025 C.O TECH
+ * DO NOT COPY THIS CODE   (it will only work for this bot only)
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the MIT License.
+ * 
+ * Credits:
+ * - Baileys Library by @adiwajshing
+ */  
 const axios = require('axios');
 const { exec } = require('child_process');
 const fs = require('fs');
@@ -46,7 +56,7 @@ async function sendAnimu(sock, chatId, message, type) {
 
         const json = {
             'sticker-pack-id': crypto.randomBytes(32).toString('hex'),
-            'sticker-pack-name': 'Anime Stickers',
+            'sticker-pack-name': 'PRINCE FAVE MDX',
             'emojis': ['🎌']
         };
         const exifAttr = Buffer.from([0x49, 0x49, 0x2A, 0x00, 0x08, 0x00, 0x00, 0x00, 0x01, 0x00, 0x41, 0x57, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00, 0x16, 0x00, 0x00, 0x00]);
@@ -110,7 +120,7 @@ async function sendAnimu(sock, chatId, message, type) {
 
     await sock.sendMessage(
         chatId,
-        { text: '❌ Failed to fetch animu.' },
+        { text: 'Oh dang, couldn\'t fetch animu.' },
         { quoted: message }
     );
 }
