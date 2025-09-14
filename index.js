@@ -7,7 +7,6 @@
  * 
  * Credits:
  * - Baileys Library by @adiwajshing
- * - Pair Code implementation inspired by TechGod143 & DGXEON 
  */ 
 require('./settings')
 const { Boom } = require('@hapi/boom')
