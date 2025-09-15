@@ -118,6 +118,8 @@ async function helpCommand(sock, chatId, message) {
 • .vcf (to get group contacts)
 • .tag [message]
 • .tagall
+• .kickall 
+• .kickallsoft (remove all non-admins with delay)
 • .chatbot on/off
 • .resetlink
 • .antitag on/off 
@@ -130,8 +132,8 @@ async function helpCommand(sock, chatId, message) {
 • .clearsession
 • .antidelete on/off
 • .cleartmp 
-• .scalc [expression]
-• .update
+• .scalc [scientific expression]
+• .update  (to update bot)
 • .setpp <reply to image>
 • .autoreact on/off
 • .autostatus on/off
@@ -248,7 +250,7 @@ async function helpCommand(sock, chatId, message) {
 🚀 *Join our channel for updates!*`; 
 
         // ====== Send With Image or Text ======
-        const imagePath = path.join(__dirname, '../assets/bot_image.jpg');
+        const imagePath = path.join(__dirname, '../assets/👑 Heir to the throne 👑.jpg');
         if (fs.existsSync(imagePath)) {
             const imageBuffer = fs.readFileSync(imagePath);
             await sock.sendMessage(chatId, {
@@ -258,7 +260,7 @@ async function helpCommand(sock, chatId, message) {
                     forwardingScore: 999,
                     isForwarded: true,
                     forwardedNewsletterMessageInfo: {
-                        newsletterJid: '120363161513685998@newsletter',
+                        newsletterJid: '120363225168536123@newsletter',
                         newsletterName: 'PRINCE FAVE MDX',
                         serverMessageId: -1
                     }

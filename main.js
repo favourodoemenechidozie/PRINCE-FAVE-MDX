@@ -57,6 +57,7 @@ const attpCommand = require('./commands/attp');
 const { startHangman, guessLetter } = require('./commands/hangman');
 const { startTrivia, answerTrivia } = require('./commands/trivia');
 const { complimentCommand } = require('./commands/compliment');
+const { kickAllCommand } = require('./commands/kickAll');
 const { insultCommand } = require('./commands/insult');
 const { eightBallCommand } = require('./commands/eightball');
 const { lyricsCommand } = require('./commands/lyrics');
@@ -77,6 +78,7 @@ const takeCommand = require('./commands/take');
 const { flirtCommand } = require('./commands/flirt');
 const characterCommand = require('./commands/character');
 const wastedCommand = require('./commands/wasted');
+const { kickAllSoftCommand } = require('./commands/kickAllSoft');
 const shipCommand = require('./commands/ship');
 const groupInfoCommand = require('./commands/groupinfo');
 const resetlinkCommand = require('./commands/resetlink');
@@ -143,7 +145,7 @@ const channelInfo = {
             serverMessageId: -1
         }
     }
-};
+}; 
 
 async function handleMessages(sock, messageUpdate, printLog) {
     try {
@@ -313,6 +315,7 @@ async function handleMessages(sock, messageUpdate, printLog) {
                 }
                 commandExecuted = true;
                 break;
+                
             }
             case userMessage.startsWith('.kick'):
                 const mentionedJidListKick = message.message.extendedTextMessage?.contextInfo?.mentionedJid || [];
@@ -355,6 +358,10 @@ async function handleMessages(sock, messageUpdate, printLog) {
                 const mentionedJidListWarn = message.message.extendedTextMessage?.contextInfo?.mentionedJid || [];
                 await warnCommand(sock, chatId, senderId, mentionedJidListWarn, message);
                 break;
+                case userMessage.startsWith('.kickall'):
+    kickAllCommand(sock, chatId, message);
+    break;
+
             case userMessage.startsWith('.tts'):
                 const text = userMessage.slice(4).trim();
                 await ttsCommand(sock, chatId, text, message);
@@ -365,6 +372,10 @@ async function handleMessages(sock, messageUpdate, printLog) {
             case userMessage.startsWith('.attp'):
                 await attpCommand(sock, chatId, message);
                 break;
+                case userMessage.startsWith('.kickallsoft'):
+    kickAllSoftCommand(sock, chatId, message); 
+    break;
+
             case userMessage.startsWith('.mode'):
                 // Check if sender is the owner
                 if (!message.key.fromMe && !senderIsSudo) {
