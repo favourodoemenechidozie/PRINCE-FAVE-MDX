@@ -61,7 +61,7 @@ const { eightBallCommand } = require('./commands/eightball');
 const { lyricsCommand } = require('./commands/lyrics');
 const { dareCommand } = require('./commands/dare');
 const { truthCommand } = require('./commands/truth');
-const { truthCommand } = require('./commands/truthordare');
+const { truthCommand,dareCommand,truthordareCommand } = require('./commands/truthordare');
 const { clearCommand } = require('./commands/clear');
 const pingCommand = require('./commands/ping');
 const aliveCommand = require('./commands/alive');
@@ -116,6 +116,8 @@ const stickercropCommand = require('./commands/stickercrop');
 const updateCommand = require('./commands/update');
 const removebgCommand = require('./commands/removebg');
 const { reminiCommand } = require('./commands/remini');
+const rpsCommand = require('./commands/rps');
+const wsgCommand = require('./commands/wsg');
 const { igsCommand } = require('./commands/igs');
 const { anticallCommand, readState: readAnticallState } = require('./commands/anticall');
 
@@ -506,6 +508,16 @@ async function handleMessages(sock, messageUpdate, printLog) {
             case userMessage.startsWith('.hangman'):
                 startHangman(sock, chatId);
                 break;
+               case userMessage.startsWith('.rps'):
+    rpsCommand(sock, chatId, message);
+    break;
+
+
+                case userMessage.startsWith('.wsg'):
+    wsgCommand(sock, chatId, message);
+    break;
+
+
             case userMessage.startsWith('.guess'):
                 const guessedLetter = userMessage.split(' ')[1];
                 if (guessedLetter) {

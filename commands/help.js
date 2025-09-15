@@ -72,7 +72,6 @@ async function helpCommand(sock, chatId, message) {
 • .owner
 • .joke
 • .quote
-• .fact
 • .weather [city]
 • .news
 • .attp [text]
@@ -143,12 +142,11 @@ async function helpCommand(sock, chatId, message) {
 • .blur [img]
 • .simage
 • .sticker
-• .removebg
-• .remini
+• .removebg <reply to an image>
 • .crop [img]
 • .tgsticker [link]
 • .meme
-• .take [pack]
+• .take [pack] 
 • .emojimix 🙂
 • .igs [link]
 • .igsc [link]
@@ -163,6 +161,10 @@ async function helpCommand(sock, chatId, message) {
 • .truth
 • .dare
 • .tod [truth/dare]
+• .fact 
+• .rps <rock, paper or scissors> 
+• .wcg 
+
 ╰─────────────────────────────╯
 
 ╭──────────  TEXTMAKER  ───────╮
@@ -228,7 +230,7 @@ async function helpCommand(sock, chatId, message) {
 • .repo
 ╰─────────────────────────────╯
 
-🚀 *Join our channel for updates!*`;
+🚀 *Join our channel for updates!*`; 
 
         // ====== Send With Image or Text ======
         const imagePath = path.join(__dirname, '../assets/bot_image.jpg');
