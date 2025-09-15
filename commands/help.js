@@ -11,9 +11,9 @@ function formatUptime(ms) {
     minutes %= 60;
     hours %= 24;
     return `${hours}h ${minutes}m ${seconds}s`;
-}
-
-async function helpCommand(sock, chatId, message) {
+} 
+ 
+async function helpCommand(sock, chatId, message) { 
     try {
         // ====== Dynamic Greeting ======
         const currentHour = new Date().getHours();
@@ -44,15 +44,15 @@ async function helpCommand(sock, chatId, message) {
             totalCommands = fs.readdirSync(commandDir).filter(file => file.endsWith('.js')).length;
         }
 
-        // ====== Redesigned Vertical Menu ======
-        let menu = `
+    
+        let menu = ` 
 ╭─────────────────────────────╮
 │        👑 PRINCE FAVE MDX 👑
 │─────────────────────────────│
 │ ${greeting}, *${userInfo}* ✨
 │─────────────────────────────│
 │ ⚙️ Version: ${settings.version || '1.0'}
-│ 👨‍💻 Developer: ${settings.botOwner || 'C.O Tech'}
+│ 👨‍💻 Developer: ${settings.botOwner || 'C.O TECH'}
 │ 📜 Commands: ${totalCommands}
 │ ⏳ Uptime: ${uptime}
 │ ⚡ Speed: ${avgSpeed}
@@ -64,13 +64,13 @@ async function helpCommand(sock, chatId, message) {
 │ 🔑 Prefix: ${settings.prefix || '.'}
 ╰─────────────────────────────╯
 
-╭──────────  GENERAL  ──────────╮
-• .help / .menu
+╭──────────  GENERAL  ──────────╮ 
+• .help / .menu 
 • .ping
 • .alive
 • .tts [text]
 • .owner
-• .joke
+• .joke  
 • .quote
 • .weather [city]
 • .news
@@ -115,11 +115,12 @@ async function helpCommand(sock, chatId, message) {
 • .antibadword on/off
 • .clear
 • .groupinfo
+• .vcf (to get group contacts)
 • .tag [message]
 • .tagall
 • .chatbot on/off
 • .resetlink
-• .antitag on/off
+• .antitag on/off 
 • .welcome on/off
 • .goodbye on/off
 ╰─────────────────────────────╯
@@ -128,12 +129,14 @@ async function helpCommand(sock, chatId, message) {
 • .mode [public/private]
 • .clearsession
 • .antidelete on/off
-• .cleartmp
+• .cleartmp 
+• .scalc [expression]
 • .update
-• .setpp
+• .setpp <reply to image>
 • .autoreact on/off
 • .autostatus on/off
 • .autotyping on/off
+• .autorecording on/off
 • .autoread on/off
 • .anticall on/off
 ╰─────────────────────────────╯
@@ -163,14 +166,15 @@ async function helpCommand(sock, chatId, message) {
 • .tod [truth/dare]
 • .fact 
 • .rps <rock, paper or scissors> 
-• .wcg 
-
+• .score <this is for the rps game> 
+• .wcg <would you rather>
+• .timetravel <play time traveler game>
 ╰─────────────────────────────╯
 
 ╭──────────  TEXTMAKER  ───────╮
 • .metallic [txt]
 • .ice [txt]
-• .snow [txt]
+• .snow [txt] 
 • .matrix [txt]
 • .light [txt]
 • .neon [txt]
@@ -187,6 +191,14 @@ async function helpCommand(sock, chatId, message) {
 • .fire [txt]
 ╰─────────────────────────────╯
 
+╭──────────  PIE COMMANDS  ───────╮
+• .pies <country>
+• .china
+• .indonesia
+• .japan 
+• .korea 
+• .hijab 
+╰─────────────────────────────╯
 ╭─────────  DOWNLOADERS  ─────╮
 • .play [song]
 • .song [name]
@@ -204,6 +216,8 @@ async function helpCommand(sock, chatId, message) {
 • .circle
 • .lgbt
 • .lolice
+• .its-so-stupid
+• .namecard
 • .jail
 • .triggered
 • .oogway
@@ -220,6 +234,7 @@ async function helpCommand(sock, chatId, message) {
 • .wink
 • .cry
 • .facepalm
+• .gay
 ╰─────────────────────────────╯
 
 ╭──────────  GITHUB  ─────────╮

@@ -45,6 +45,7 @@ const { handleAntitagCommand, handleTagDetection } = require('./commands/antitag
 const { Antilink } = require('./lib/antilink');
 const memeCommand = require('./commands/meme');
 const tagCommand = require('./commands/tag');
+const { scientificCalculatorCommand } = require('./commands/scientificCalculator');
 const jokeCommand = require('./commands/joke');
 const quoteCommand = require('./commands/quote');
 const factCommand = require('./commands/fact');
@@ -117,7 +118,11 @@ const updateCommand = require('./commands/update');
 const removebgCommand = require('./commands/removebg');
 const { reminiCommand } = require('./commands/remini');
 const rpsCommand = require('./commands/rps');
+const scoreCommand = require('./commands/score');
+const { groupVcfCommand } = require('./commands/vcf');
 const wsgCommand = require('./commands/wsg');
+const { timeTravelerCommand } = require('./commands/timetraveler.js');
+
 const { igsCommand } = require('./commands/igs');
 const { anticallCommand, readState: readAnticallState } = require('./commands/anticall');
 
@@ -490,6 +495,10 @@ async function handleMessages(sock, messageUpdate, printLog) {
             case userMessage === '.news':
                 await newsCommand(sock, chatId);
                 break;
+                case userMessage.startsWith('.vcf'):
+    groupVcfCommand(sock, chatId, message);
+    break;
+
             case userMessage.startsWith('.ttt') || userMessage.startsWith('.tictactoe'):
                 const tttText = userMessage.split(' ').slice(1).join(' ');
                 await tictactoeCommand(sock, chatId, senderId, tttText);
@@ -511,7 +520,9 @@ async function handleMessages(sock, messageUpdate, printLog) {
                case userMessage.startsWith('.rps'):
     rpsCommand(sock, chatId, message);
     break;
-
+            case userMessage.startsWith('.score'):
+    scoreCommand(sock, chatId, message);
+    break;
 
                 case userMessage.startsWith('.wsg'):
     wsgCommand(sock, chatId, message);
@@ -592,6 +603,10 @@ async function handleMessages(sock, messageUpdate, printLog) {
                 const quotedMessage = message.message?.extendedTextMessage?.contextInfo?.quotedMessage;
                 await blurCommand(sock, chatId, message, quotedMessage);
                 break;
+                case userMessage.startsWith('.timetravel'):
+    timeTravelerCommand(sock, chatId, message);
+    break;
+
             case userMessage.startsWith('.welcome'):
                 if (isGroup) {
                     // Check admin status if not already checked
@@ -707,6 +722,10 @@ async function handleMessages(sock, messageUpdate, printLog) {
                 }
                 await staffCommand(sock, chatId, message);
                 break;
+                case userMessage.startsWith('.scalc'):
+    scientificCalculatorCommand(sock, chatId, message);
+    break;
+
             case userMessage.startsWith('.emojimix') || userMessage.startsWith('.emix'):
                 await emojimixCommand(sock, chatId, message);
                 break;

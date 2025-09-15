@@ -1,3 +1,13 @@
+/**
+ * PRINCE FAVE MDX- A WhatsApp Bot
+ * Copyright (c) 2025 C.O TECH
+ * DO NOT COPY THIS CODE   (it will only work for this bot only)
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the MIT License.
+ * 
+ * Credits:
+ * - Baileys Library by @adiwajshing
+ */ 
 const { igdl } = require('ruhend-scraper');
 const axios = require('axios');
 const { exec } = require('child_process');
@@ -89,7 +99,7 @@ async function convertBufferToStickerWebp(inputBuffer, isAnimated, cropSquare) {
 
     const json = {
         'sticker-pack-id': crypto.randomBytes(32).toString('hex'),
-        'sticker-pack-name': settings.packname || 'KnightBot',
+        'sticker-pack-name': settings.packname || 'PRINCE FAVE MDX',
         'emojis': ['📸']
     };
     const exifAttr = Buffer.from([0x49, 0x49, 0x2A, 0x00, 0x08, 0x00, 0x00, 0x00, 0x01, 0x00, 0x41, 0x57, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00, 0x16, 0x00, 0x00, 0x00]);
@@ -117,7 +127,7 @@ async function convertBufferToStickerWebp(inputBuffer, isAnimated, cropSquare) {
                 await img2.load(smallWebp);
                 const json2 = {
                     'sticker-pack-id': crypto.randomBytes(32).toString('hex'),
-                    'sticker-pack-name': settings.packname || 'KnightBot',
+                    'sticker-pack-name': settings.packname || 'PRINCE FAVE MDX',
                     'emojis': ['📸']
                 };
                 const exifAttr2 = Buffer.from([0x49, 0x49, 0x2A, 0x00, 0x08, 0x00, 0x00, 0x00, 0x01, 0x00, 0x41, 0x57, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00, 0x16, 0x00, 0x00, 0x00]);
@@ -197,7 +207,7 @@ async function igsCommand(sock, chatId, message, crop = false) {
 
         const downloadData = await igdl(urlMatch[0]).catch(() => null);
         if (!downloadData || !downloadData.data) {
-            await sock.sendMessage(chatId, { text: '❌ Failed to fetch media from Instagram link.' }, { quoted: message });
+            await sock.sendMessage(chatId, { text: ' Failed to fetch media from Instagram link.' }, { quoted: message });
             return;
         }
         // Raw items
@@ -212,7 +222,7 @@ async function igsCommand(sock, chatId, message, crop = false) {
             }
         }
         if (items.length === 0) {
-            await sock.sendMessage(chatId, { text: '❌ No media found at the provided link.' }, { quoted: message });
+            await sock.sendMessage(chatId, { text: ' No media found at the provided link.' }, { quoted: message });
             return;
         }
 
@@ -299,7 +309,7 @@ async function forceMiniSticker(inputBuffer, isVideo, cropSquare) {
     await img.load(smallWebp);
     const json = {
         'sticker-pack-id': crypto.randomBytes(32).toString('hex'),
-        'sticker-pack-name': settings.packname || 'KnightBot',
+        'sticker-pack-name': settings.packname || 'PRINCE FAVE MDX',
         'emojis': ['📸']
     };
     const exifAttr = Buffer.from([0x49, 0x49, 0x2A, 0x00, 0x08, 0x00, 0x00, 0x00, 0x01, 0x00, 0x41, 0x57, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00, 0x16, 0x00, 0x00, 0x00]);
