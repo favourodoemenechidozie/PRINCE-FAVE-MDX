@@ -1,3 +1,13 @@
+/**
+ * PRINCE FAVE MDX - A WhatsApp Bot
+ * Copyright (c) 2025 C.O TECH
+ * DO NOT COPY THIS CODE   (it will only work for this bot only)
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the MIT License.
+ * 
+ * Credits:
+ * - Baileys Library by @adiwajshing
+ */
 const fetch = require('node-fetch');
 
 async function goodnightCommand(sock, chatId, message) {
@@ -16,7 +26,7 @@ async function goodnightCommand(sock, chatId, message) {
         await sock.sendMessage(chatId, { text: goodnightMessage }, { quoted: message });
     } catch (error) {
         console.error('Error in goodnight command:', error);
-        await sock.sendMessage(chatId, { text: '❌ Failed to get goodnight message. Please try again later!' }, { quoted: message });
+        await sock.sendMessage(chatId, { text: ' oh dang to get goodnight message. Please try again later!' }, { quoted: message });
     }
 }
 

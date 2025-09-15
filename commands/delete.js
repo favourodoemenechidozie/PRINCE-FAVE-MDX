@@ -1,3 +1,14 @@
+/**
+ * PRINCE FAVE MDX - A WhatsApp Bot
+ * Copyright (c) 2025 C.O TECH
+ * DO NOT COPY THIS CODE   (it will only work for this bot only)
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the MIT License.
+ * 
+ * Credits:
+ * - Baileys Library by @adiwajshing
+ */
+
 const isAdmin = require('../lib/isAdmin');
 const store = require('../lib/lightweight_store');
 
@@ -6,12 +17,12 @@ async function deleteCommand(sock, chatId, message, senderId) {
         const { isSenderAdmin, isBotAdmin } = await isAdmin(sock, chatId, senderId);
 
         if (!isBotAdmin) {
-            await sock.sendMessage(chatId, { text: 'I need to be an admin to delete messages.' }, { quoted: message });
+            await sock.sendMessage(chatId, { text: ' hmm have to be an admin to delete messages.' }, { quoted: message });
             return;
         }
 
         if (!isSenderAdmin) {
-            await sock.sendMessage(chatId, { text: 'Only admins can use the .delete command.' }, { quoted: message });
+            await sock.sendMessage(chatId, { text: 'Only admins can use the .delete command. so go and sleep peasant!' }, { quoted: message });
             return;
         }
 
@@ -37,7 +48,7 @@ async function deleteCommand(sock, chatId, message, senderId) {
         } else if (mentioned) {
             targetUser = mentioned;
         } else {
-            await sock.sendMessage(chatId, { text: 'Please reply to a user\'s message or mention a user to delete their recent messages.' }, { quoted: message });
+            await sock.sendMessage(chatId, { text: 'reply to a user\'s message or mention a user to delete their recent messages.' }, { quoted: message });
             return;
         }
 

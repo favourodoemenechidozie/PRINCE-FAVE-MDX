@@ -1,3 +1,13 @@
+/**
+ * PRINCE FAVE MDX- A WhatsApp Bot
+ * Copyright (c) 2025 C.O TECH
+ * DO NOT COPY THIS CODE   (it will only work for this bot only)
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the MIT License.
+ * 
+ * Credits:
+ * - Baileys Library by @adiwajshing
+ */ 
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
@@ -7,8 +17,8 @@ const channelInfo = {
         forwardingScore: 999,
         isForwarded: true,
         forwardedNewsletterMessageInfo: {
-            newsletterJid: '120363161513685998@newsletter',
-            newsletterName: 'KnightBot MD',
+            newsletterJid: '120363225168536123@newsletter',
+            newsletterName: 'PRINCE FAVE MDX',
             serverMessageId: -1
         }
     }
@@ -19,7 +29,7 @@ async function clearSessionCommand(sock, chatId, msg) {
         // Check if sender is owner
         if (!msg.key.fromMe) {
             await sock.sendMessage(chatId, { 
-                text: '❌ This command can only be used by the owner!',
+                text: 'This command can only be used by the owner!',
                 ...channelInfo
             });
             return;
@@ -30,7 +40,7 @@ async function clearSessionCommand(sock, chatId, msg) {
 
         if (!fs.existsSync(sessionDir)) {
             await sock.sendMessage(chatId, { 
-                text: '❌ Session directory not found!',
+                text: 'Session directory not found!',
                 ...channelInfo
             });
             return;
@@ -89,7 +99,7 @@ async function clearSessionCommand(sock, chatId, msg) {
     } catch (error) {
         console.error('Error in clearsession command:', error);
         await sock.sendMessage(chatId, { 
-            text: '❌ Failed to clear session files!',
+            text: '❌ failed to clear session files!',
             ...channelInfo
         });
     }

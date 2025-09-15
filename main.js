@@ -61,6 +61,7 @@ const { eightBallCommand } = require('./commands/eightball');
 const { lyricsCommand } = require('./commands/lyrics');
 const { dareCommand } = require('./commands/dare');
 const { truthCommand } = require('./commands/truth');
+const { truthCommand } = require('./commands/truthordare');
 const { clearCommand } = require('./commands/clear');
 const pingCommand = require('./commands/ping');
 const aliveCommand = require('./commands/alive');
@@ -551,6 +552,9 @@ async function handleMessages(sock, messageUpdate, printLog) {
                 break;
             case userMessage === '.dare':
                 await dareCommand(sock, chatId, message);
+                break;
+            case userMessage === '.tod':
+                await truthordareCommand(sock, chatId, message);
                 break;
             case userMessage === '.truth':
                 await truthCommand(sock, chatId, message);

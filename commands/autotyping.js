@@ -59,13 +59,13 @@ async function autotypingCommand(sock, chatId, message) {
                 config.enabled = false;
             } else {
                 await sock.sendMessage(chatId, {
-                    text: '❌ Invalid option! Use: .autotyping on/off',
+                    text: ' Invalid option! Use: .autotyping on/off',
                     contextInfo: {
                         forwardingScore: 1,
                         isForwarded: true,
                         forwardedNewsletterMessageInfo: {
-                            newsletterJid: '120363161513685998@newsletter',
-                            newsletterName: 'KnightBot MD',
+                            newsletterJid: '120363225168536123@newsletter',
+                            newsletterName: 'PRINCE FAVE MDX',
                             serverMessageId: -1
                         }
                     }
@@ -87,8 +87,8 @@ async function autotypingCommand(sock, chatId, message) {
                 forwardingScore: 1,
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
-                    newsletterJid: '120363161513685998@newsletter',
-                    newsletterName: 'KnightBot MD',
+                    newsletterJid: '120363225168536123@newsletter',
+                    newsletterName: 'PRINCE FAVE MDX',
                     serverMessageId: -1
                 }
             }
@@ -102,8 +102,8 @@ async function autotypingCommand(sock, chatId, message) {
                 forwardingScore: 1,
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
-                    newsletterJid: '120363161513685998@newsletter',
-                    newsletterName: 'KnightBot MD',
+                    newsletterJid: '120363225168536123@newsletter',
+                    newsletterName: 'PRINCE FAVE MDX',
                     serverMessageId: -1
                 }
             }

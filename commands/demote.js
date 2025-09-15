@@ -1,151 +1,108 @@
+/**
+ * PRINCE FAVE MDX - A WhatsApp Bot
+ * Copyright (c) 2025 C.O TECH
+ * DO NOT COPY THIS CODE   (it will only work for this bot only)
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the MIT License.
+ * 
+ * Credits:
+ * - Baileys Library by @adiwajshing
+ */
+
 const isAdmin = require('../lib/isAdmin');
 
 async function demoteCommand(sock, chatId, mentionedJids, message) {
     try {
-        // First check if it's a group
+        // ✅ Step 1: Ensure this is a group
         if (!chatId.endsWith('@g.us')) {
-            await sock.sendMessage(chatId, { 
-                text: 'This command can only be used in groups!'
-            });
-            return;
+            return sock.sendMessage(chatId, { 
+                text: '⚠️ This command can only be used *inside groups*!'
+            }, { quoted: message });
         }
 
-        // Check admin status first, before any other operations
-        try {
-            const adminStatus = await isAdmin(sock, chatId, message.key.participant || message.key.remoteJid);
-            
-            if (!adminStatus.isBotAdmin) {
-                await sock.sendMessage(chatId, { 
-                    text: '❌ Error: Please make the bot an admin first to use this command.'
-                });
-                return;
-            }
-
-            if (!adminStatus.isSenderAdmin) {
-                await sock.sendMessage(chatId, { 
-                    text: '❌ Error: Only group admins can use the demote command.'
-                });
-                return;
-            }
-        } catch (adminError) {
-            console.error('Error checking admin status:', adminError);
-            await sock.sendMessage(chatId, { 
-                text: '❌ Error: Please make sure the bot is an admin of this group.'
-            });
-            return;
-        }
-
-        let userToDemote = [];
+        // ✅ Step 2: Check admin privileges
+        const adminStatus = await isAdmin(sock, chatId, message.key.participant || message.key.remoteJid);
         
-        // Check for mentioned users
+        if (!adminStatus.isBotAdmin) {
+            return sock.sendMessage(chatId, { 
+                text: '❌ *PRINCE FAVE MDX ERROR:*\n\nPlease make the bot an *admin* first!'
+            }, { quoted: message });
+        }
+
+        if (!adminStatus.isSenderAdmin) {
+            return sock.sendMessage(chatId, { 
+                text: '⛔ *PRINCE FAVE MDX WARNING:*\n\nOnly *group admins* can use the demote command.'
+            }, { quoted: message });
+        }
+
+        // ✅ Step 3: Detect target users
+        let userToDemote = [];
         if (mentionedJids && mentionedJids.length > 0) {
             userToDemote = mentionedJids;
-        }
-        // Check for replied message
-        else if (message.message?.extendedTextMessage?.contextInfo?.participant) {
+        } else if (message.message?.extendedTextMessage?.contextInfo?.participant) {
             userToDemote = [message.message.extendedTextMessage.contextInfo.participant];
         }
-        
-        // If no user found through either method
+
         if (userToDemote.length === 0) {
-            await sock.sendMessage(chatId, { 
-                text: '❌ Error: Please mention the user or reply to their message to demote!'
-            });
-            return;
+            return sock.sendMessage(chatId, { 
+                text: '⚠️ *PRINCE FAVE MDX NOTICE:*\n\nPlease *mention* a user or *reply* to their message to demote.'
+            }, { quoted: message });
         }
 
-        // Add delay to avoid rate limiting
-        await new Promise(resolve => setTimeout(resolve, 1000));
-
+        // ✅ Step 4: Perform demotion
         await sock.groupParticipantsUpdate(chatId, userToDemote, "demote");
-        
-        // Get usernames for each demoted user
-        const usernames = await Promise.all(userToDemote.map(async jid => {
-            return `@${jid.split('@')[0]}`;
-        }));
 
-        // Add delay to avoid rate limiting
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        // ✅ Step 5: Build response
+        const usernames = userToDemote.map(jid => `• @${jid.split('@')[0]}`);
+        const demoter = `@${(message.key.participant || message.key.remoteJid).split('@')[0]}`;
 
-        const demotionMessage = `*『 GROUP DEMOTION 』*\n\n` +
-            `👤 *Demoted User${userToDemote.length > 1 ? 's' : ''}:*\n` +
-            `${usernames.map(name => `• ${name}`).join('\n')}\n\n` +
-            `👑 *Demoted By:* @${message.key.participant ? message.key.participant.split('@')[0] : message.key.remoteJid.split('@')[0]}\n\n` +
-            `📅 *Date:* ${new Date().toLocaleString()}`;
-        
+        const demotionMessage = 
+`*『 PRINCE FAVE MDX | GROUP DEMOTION 』*
+
+👤 *Demoted User${userToDemote.length > 1 ? 's' : ''}:*
+${usernames.join('\n')}
+
+👑 *Demoted By:* ${demoter}
+📅 *Date:* ${new Date().toLocaleString()}`;
+
         await sock.sendMessage(chatId, { 
             text: demotionMessage,
             mentions: [...userToDemote, message.key.participant || message.key.remoteJid]
         });
+
     } catch (error) {
-        console.error('Error in demote command:', error);
-        if (error.data === 429) {
-            await new Promise(resolve => setTimeout(resolve, 2000));
-            try {
-                await sock.sendMessage(chatId, { 
-                    text: '❌ Rate limit reached. Please try again in a few seconds.'
-                });
-            } catch (retryError) {
-                console.error('Error sending retry message:', retryError);
-            }
-        } else {
-            try {
-                await sock.sendMessage(chatId, { 
-                    text: '❌ Failed to demote user(s). Make sure the bot is admin and has sufficient permissions.'
-                });
-            } catch (sendError) {
-                console.error('Error sending error message:', sendError);
-            }
-        }
+        console.error('❌ Error in PRINCE FAVE MDX demoteCommand:', error);
+        await sock.sendMessage(chatId, { 
+            text: '⚠️ *PRINCE FAVE MDX ERROR:*\n\nFailed to demote user(s). Ensure the bot is an *admin* and try again.'
+        }, { quoted: message });
     }
 }
 
-// Function to handle automatic demotion detection
+// 🔔 Auto handler for demotion events
 async function handleDemotionEvent(sock, groupId, participants, author) {
     try {
-        if (!groupId || !participants) {
-            console.log('Invalid groupId or participants:', { groupId, participants });
-            return;
-        }
+        if (!groupId || !participants) return;
 
-        // Add delay to avoid rate limiting
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        const demotedUsernames = participants.map(jid => `• @${jid.split('@')[0]}`);
+        const demoter = author ? `@${author.split('@')[0]}` : 'System';
+        const mentionList = [...participants, ...(author ? [author] : [])];
 
-        // Get usernames for demoted participants
-        const demotedUsernames = await Promise.all(participants.map(async jid => {
-            return `@${jid.split('@')[0]}`;
-        }));
+        const demotionMessage = 
+`*『 PRINCE FAVE MDX | GROUP DEMOTION 』*
 
-        let demotedBy;
-        let mentionList = [...participants];
+👤 *Demoted User${participants.length > 1 ? 's' : ''}:*
+${demotedUsernames.join('\n')}
 
-        if (author && author.length > 0) {
-            // Ensure author has the correct format
-            const authorJid = author;
-            demotedBy = `@${authorJid.split('@')[0]}`;
-            mentionList.push(authorJid);
-        } else {
-            demotedBy = 'System';
-        }
+👑 *Demoted By:* ${demoter}
+📅 *Date:* ${new Date().toLocaleString()}`;
 
-        // Add delay to avoid rate limiting
-        await new Promise(resolve => setTimeout(resolve, 1000));
-
-        const demotionMessage = `*『 GROUP DEMOTION 』*\n\n` +
-            `👤 *Demoted User${participants.length > 1 ? 's' : ''}:*\n` +
-            `${demotedUsernames.map(name => `• ${name}`).join('\n')}\n\n` +
-            `👑 *Demoted By:* ${demotedBy}\n\n` +
-            `📅 *Date:* ${new Date().toLocaleString()}`;
-        
         await sock.sendMessage(groupId, {
             text: demotionMessage,
             mentions: mentionList
         });
+
     } catch (error) {
-        console.error('Error handling demotion event:', error);
-        if (error.data === 429) {
-            await new Promise(resolve => setTimeout(resolve, 2000));
-        }
+        console.error('❌ Error in PRINCE FAVE MDX handleDemotionEvent:', error);
     }
 }
 
