@@ -20,7 +20,7 @@ module.exports = async function factCommand(sock, chatId, message) {
         const fact = response.data.text;
 
         // Path to your custom image (in assets folder)
-        const imagePath = path.join(__dirname, '../assets/princefave.jpg'); 
+        const imagePath = path.join(__dirname, '../assets/Time For Facts.jpg'); 
 
         // Send image + fact as caption
         await sock.sendMessage(chatId, {

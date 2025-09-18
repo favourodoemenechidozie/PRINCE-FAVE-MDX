@@ -21,7 +21,7 @@ function formatTime(seconds) {
 async function pingCommand(sock, chatId, message) {
     try {
         const start = Date.now();
-        await sock.sendMessage(chatId, { text: 'Pong!' }, { quoted: message });
+        await sock.sendMessage(chatId, { text: '⚡ Calculating speed...' }, { quoted: message });
         const end = Date.now();
         const ping = Math.round((end - start) / 2);
 
@@ -29,14 +29,17 @@ async function pingCommand(sock, chatId, message) {
         const uptimeFormatted = formatTime(uptimeInSeconds);
 
         const botInfo = `
-┏━━〔 🤖 𝐊𝐧𝐢𝐠𝐡𝐭𝐁𝐨𝐭-𝐌𝐃 〕━━┓
-┃ 🚀 Ping     : ${ping} ms
-┃ ⏱️ Uptime   : ${uptimeFormatted}
-┃ 🔖 Version  : v${settings.version}
-┗━━━━━━━━━━━━━━━━━━━┛`.trim();
+╭───────────👑───────────╮
+│   ⚡ *PRINCE FAVE MDX* ⚡
+│─────────────────────────│
+│ 🚀 Ping     : *${ping} ms*
+│ ⏱️ Uptime   : *${uptimeFormatted}*
+│ 🔖 Version  : *v${settings.version}*
+│ 💻 Platform : *${process.platform}*
+│ 🧠 RAM      : *${(process.memoryUsage().rss / 1024 / 1024).toFixed(2)} MB*
+╰───────────👑───────────╯`.trim();
 
-        // Reply to the original message with the bot info
-        await sock.sendMessage(chatId, { text: botInfo},{ quoted: message });
+        await sock.sendMessage(chatId, { text: botInfo }, { quoted: message });
 
     } catch (error) {
         console.error('Error in ping command:', error);

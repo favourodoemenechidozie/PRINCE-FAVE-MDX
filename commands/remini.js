@@ -27,6 +27,11 @@ async function getQuotedOrOwnImageUrl(sock, message) {
 
 async function reminiCommand(sock, chatId, message, args) {
     try {
+        // 🔥 React when command is triggered
+        await sock.sendMessage(chatId, {
+            react: { text: "📸", key: message.key }
+        });
+
         let imageUrl = null;
         
         // Check if args contain a URL
@@ -45,7 +50,18 @@ async function reminiCommand(sock, chatId, message, args) {
             
             if (!imageUrl) {
                 return sock.sendMessage(chatId, { 
-                    text: '📸 *Remini AI Enhancement Command*\n\nUsage:\n• `.remini <image_url>`\n• Reply to an image with `.remini`\n• Send image with `.remini`\n\nExample: `.remini https://example.com/image.jpg`' 
+                    text: `
+╭───────────✨───────────╮
+│    *『 REMINI AI 』*  
+│────────────────────────│
+│ 📸 Usage:
+│ • .remini <image_url>
+│ • Reply to an image with .remini
+│ • Send image with .remini
+│
+│ 💡 Example:
+│ .remini https://example.com/image.jpg
+╰───────────✨───────────╯`.trim()
                 }, { quoted: message });
             }
         }
@@ -60,7 +76,6 @@ async function reminiCommand(sock, chatId, message, args) {
             }
         });
 
-
         if (response.data && response.data.success && response.data.result) {
             const result = response.data.result;
             
@@ -72,10 +87,23 @@ async function reminiCommand(sock, chatId, message, args) {
                 });
                 
                 if (imageResponse.status === 200 && imageResponse.data) {
+                    // Change reaction to ✨ when enhancement is ready
+                    await sock.sendMessage(chatId, {
+                        react: { text: "✨", key: message.key }
+                    });
+
                     // Send the enhanced image
                     await sock.sendMessage(chatId, {
                         image: imageResponse.data,
-                        caption: '✨ *Image enhanced successfully!*\n\n𝗘𝗡𝗛𝗔𝗡𝗖𝗘𝗗 𝗕𝗬 𝗞𝗡𝗜𝗚𝗛𝗧-𝗕𝗢𝗧'
+                        caption: `
+╭───────────👑───────────╮
+│   ✨ *IMAGE ENHANCED!* ✨
+│─────────────────────────│
+│ 📸 Enhanced using Remini AI
+│ 🤖 Powered by *PRINCE FAVE MDX*
+│ 
+│ Enjoy your sharper image! 🚀
+╰───────────👑───────────╯`.trim()
                     }, { quoted: message });
                 } else {
                     throw new Error('Failed to download enhanced image');
@@ -90,7 +118,14 @@ async function reminiCommand(sock, chatId, message, args) {
     } catch (error) {
         console.error('Remini Error:', error.message);
         
-        let errorMessage = '❌ Failed to enhance image.';
+        let errorMessage = `
+╭───────────⚠️───────────╮
+│ ❌ *Remini Failed* ❌
+│────────────────────────│
+│ ${error.message || 'Unknown error'}
+│
+│ 💡 Try again later.
+╰───────────⚠️───────────╯`.trim();
         
         if (error.response?.status === 429) {
             errorMessage = '⏰ Rate limit exceeded. Please try again later.';

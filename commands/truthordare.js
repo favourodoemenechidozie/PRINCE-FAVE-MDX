@@ -13,7 +13,7 @@ const fs = require('fs');
 const fetch = require('node-fetch');
 
 
-const imagePath = './assets/dare.jpg'; // Path to your image file
+const imagePath = '../assets/Time For Facts.jpg'; // Path to your image file
 const dareImage = fs.readFileSync(imagePath);
 // -------------------------
 // Local Fallback Truths (200 items)
@@ -519,4 +519,4 @@ async function truthOrDareCommand(sock, chatId, message) {
   }
 }
 
-module.exports = { truthCommand, dareCommand, truthordareCommand };
+module.exports = { truthCommand, dareCommand, truthOrDareCommand };

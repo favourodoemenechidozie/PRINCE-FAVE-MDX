@@ -33,6 +33,12 @@ module.exports = {
     async exec(sock, message, args) {
         try {
             const chatId = message.key.remoteJid;
+
+            // 🔥 React instantly
+            await sock.sendMessage(chatId, {
+                react: { text: "📸", key: message.key }
+            });
+
             let imageUrl = null;
             
             // Check if args contain a URL
@@ -51,12 +57,22 @@ module.exports = {
                 
                 if (!imageUrl) {
                     return sock.sendMessage(chatId, { 
-                        text: '📸 *Remove Background Command*\n\nUsage:\n• `.removebg <image_url>`\n• Reply to an image with `.removebg`\n• Send image with `.removebg`\n\nExample: `.removebg https://example.com/image.jpg`' 
+                        text: `
+╭───────────✨───────────╮
+│     *『 REMOVE BG 』*  
+│────────────────────────│
+│ 📸 Usage:
+│ • .removebg <image_url>
+│ • Reply to an image with .removebg
+│ • Send image with .removebg
+│
+│ 💡 Example:
+│ .removebg https://example.com/image.jpg
+╰───────────✨───────────╯`.trim()
                     }, { quoted: message });
                 }
             }
 
-        
             // Call the remove background API
             const apiUrl = `https://api.siputzx.my.id/api/iloveimg/removebg?image=${encodeURIComponent(imageUrl)}`;
             
@@ -69,10 +85,23 @@ module.exports = {
             });
 
             if (response.status === 200 && response.data) {
+                // Change reaction to ✨ when done
+                await sock.sendMessage(chatId, {
+                    react: { text: "✨", key: message.key }
+                });
+
                 // Send the processed image
                 await sock.sendMessage(chatId, {
                     image: response.data,
-                    caption: '✨ *Background removed successfully!*\n\n𝗣𝗥𝗢𝗖𝗘𝗦𝗦𝗘𝗗 𝗕𝗬 𝗞𝗡𝗜𝗚𝗛𝗧-𝗕𝗢𝗧'
+                    caption: `
+╭───────────👑───────────╮
+│  ✨ *BACKGROUND REMOVED!* ✨
+│─────────────────────────│
+│ 📸 Clean image ready!
+│ 🤖 Powered by *PRINCE FAVE MDX*
+│ 
+│ Enjoy your pro edit 🚀
+╰───────────👑───────────╯`.trim()
                 }, { quoted: message });
             } else {
                 throw new Error('Failed to process image');
@@ -81,7 +110,14 @@ module.exports = {
         } catch (error) {
             console.error('RemoveBG Error:', error.message);
             
-            let errorMessage = '❌ Failed to remove background.';
+            let errorMessage = `
+╭───────────⚠️───────────╮
+│ ❌ *Remove BG Failed* ❌
+│────────────────────────│
+│ ${error.message || 'Unknown error'}
+│
+│ 💡 Try again later.
+╰───────────⚠️───────────╯`.trim();
             
             if (error.response?.status === 429) {
                 errorMessage = '⏰ Rate limit exceeded. Please try again later.';

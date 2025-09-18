@@ -11,19 +11,19 @@ function formatUptime(ms) {
     minutes %= 60;
     hours %= 24;
     return `${hours}h ${minutes}m ${seconds}s`;
-} 
- 
-async function helpCommand(sock, chatId, message) { 
+}
+
+async function helpCommand(sock, chatId, message) {
     try {
         // ====== Dynamic Greeting ======
         const currentHour = new Date().getHours();
         let greeting;
         if (currentHour >= 5 && currentHour < 12) {
-            greeting = "🌅 Good Morning";
+            greeting = "Good Morning 🌅";
         } else if (currentHour >= 12 && currentHour < 18) {
-            greeting = "☀️ Good Afternoon";
+            greeting = "Good Afternoon ☀️";
         } else {
-            greeting = "🌙 Good Night";
+            greeting = "Good Night 🌙";
         }
 
         // ====== Bot Stats ======
@@ -37,17 +37,13 @@ async function helpCommand(sock, chatId, message) {
         const memoryInfo = (process.memoryUsage().rss / 1024 / 1024).toFixed(2) + " MB";
         const userInfo = message.pushName || "User";
 
-        // ====== Count Commands Dynamically ======
-        const commandDir = path.join(__dirname, '../commands');
-        let totalCommands = 0;
-        if (fs.existsSync(commandDir)) {
-            totalCommands = fs.readdirSync(commandDir).filter(file => file.endsWith('.js')).length;
-        }
+        // ====== Manually set command count ======
+        const totalCommands = 150; // <-- You can change this number manually
 
-    
-        let menu = ` 
+        // ====== Menu ======
+        let menu = `
 ╭─────────────────────────────╮
-│        👑 PRINCE FAVE MDX 👑
+│        👑 *PRINCE FAVE MDX* 👑
 │─────────────────────────────│
 │ ${greeting}, *${userInfo}* ✨
 │─────────────────────────────│
@@ -64,13 +60,13 @@ async function helpCommand(sock, chatId, message) {
 │ 🔑 Prefix: ${settings.prefix || '.'}
 ╰─────────────────────────────╯
 
-╭──────────  GENERAL  ──────────╮ 
-• .help / .menu 
+╭────────── 🛠️ GENERAL ──────────╮
+• .help / .menu
 • .ping
 • .alive
 • .tts [text]
 • .owner
-• .joke  
+• .joke
 • .quote
 • .weather [city]
 • .news
@@ -83,12 +79,12 @@ async function helpCommand(sock, chatId, message) {
 • .jid
 ╰─────────────────────────────╯
 
-╭──────────  FUN/AI  ──────────╮
+╭────────── 🤖 FUN/AI ──────────╮
 • .gpt5 [query]
 • .gemini [query]
 • .imagine [prompt]
 • .flux [prompt]
-• .remini  [reply to an image to enhance]
+• .remini [reply img]
 • .compliment
 • .insult
 • .flirt
@@ -101,7 +97,8 @@ async function helpCommand(sock, chatId, message) {
 • .simp
 • .stupid [text]
 ╰─────────────────────────────╯
-╭──────────  ADMIN  ───────────╮
+
+╭────────── 👮 ADMIN ───────────╮
 • .ban [@user]
 • .promote [@user]
 • .demote [@user]
@@ -115,26 +112,26 @@ async function helpCommand(sock, chatId, message) {
 • .antibadword on/off
 • .clear
 • .groupinfo
-• .vcf (to get group contacts)
+• .vcf
 • .tag [message]
 • .tagall
-• .kickall 
-• .kickallsoft (remove all non-admins with delay)
+• .kickall
+• .kickallsoft
 • .chatbot on/off
 • .resetlink
-• .antitag on/off 
+• .antitag on/off
 • .welcome on/off
 • .goodbye on/off
 ╰─────────────────────────────╯
 
-╭──────────  OWNER  ───────────╮
+╭────────── 👑 OWNER ───────────╮
 • .mode [public/private]
 • .clearsession
 • .antidelete on/off
-• .cleartmp 
-• .scalc [scientific expression]
-• .update  (to update bot)
-• .setpp <reply to image>
+• .cleartmp
+• .scalc [expression]
+• .update
+• .setpp <reply img>
 • .autoreact on/off
 • .autostatus on/off
 • .autotyping on/off
@@ -143,21 +140,21 @@ async function helpCommand(sock, chatId, message) {
 • .anticall on/off
 ╰─────────────────────────────╯
 
-╭───────── IMAGE/STICKER ──────╮
+╭───────── 🖼️ IMAGE/STICKER ─────╮
 • .blur [img]
 • .simage
 • .sticker
-• .removebg <reply to an image>
+• .removebg <reply img>
 • .crop [img]
 • .tgsticker [link]
 • .meme
-• .take [pack] 
+• .take [pack]
 • .emojimix 🙂
 • .igs [link]
 • .igsc [link]
 ╰─────────────────────────────╯
 
-╭───────────  GAMES  ──────────╮
+╭────────── 🎮 GAMES ──────────╮
 • .tictactoe [@user]
 • .hangman
 • .guess [letter]
@@ -166,17 +163,17 @@ async function helpCommand(sock, chatId, message) {
 • .truth
 • .dare
 • .tod [truth/dare]
-• .fact 
-• .rps <rock, paper or scissors> 
-• .score <this is for the rps game> 
-• .wcg <would you rather>
-• .timetravel <play time traveler game>
+• .fact
+• .rps <rock,paper,scissors>
+• .score
+• .wcg
+• .timetravel
 ╰─────────────────────────────╯
 
-╭──────────  TEXTMAKER  ───────╮
+╭────────── 🎨 TEXTMAKER ──────╮
 • .metallic [txt]
 • .ice [txt]
-• .snow [txt] 
+• .snow [txt]
 • .matrix [txt]
 • .light [txt]
 • .neon [txt]
@@ -193,15 +190,16 @@ async function helpCommand(sock, chatId, message) {
 • .fire [txt]
 ╰─────────────────────────────╯
 
-╭──────────  PIE COMMANDS  ───────╮
+╭────────── 🌏 PIE COMMANDS ───╮
 • .pies <country>
 • .china
 • .indonesia
-• .japan 
-• .korea 
-• .hijab 
+• .japan
+• .korea
+• .hijab
 ╰─────────────────────────────╯
-╭─────────  DOWNLOADERS  ─────╮
+
+╭───────── 📥 DOWNLOADERS ─────╮
 • .play [song]
 • .song [name]
 • .instagram [link]
@@ -212,7 +210,7 @@ async function helpCommand(sock, chatId, message) {
 • .lyrics [song]
 ╰─────────────────────────────╯
 
-╭──────────  MISC/ANIME  ─────╮
+╭────────── 🎭 MISC/ANIME ─────╮
 • .heart
 • .horny
 • .circle
@@ -239,7 +237,7 @@ async function helpCommand(sock, chatId, message) {
 • .gay
 ╰─────────────────────────────╯
 
-╭──────────  GITHUB  ─────────╮
+╭────────── 💻 GITHUB ─────────╮
 • .git
 • .github
 • .sc
@@ -247,7 +245,7 @@ async function helpCommand(sock, chatId, message) {
 • .repo
 ╰─────────────────────────────╯
 
-🚀 *Join our channel for updates!*`; 
+🚀 *Join our channel for updates!*`;
 
         // ====== Send With Image or Text ======
         const imagePath = path.join(__dirname, '../assets/👑 Heir to the throne 👑.jpg');
@@ -255,20 +253,20 @@ async function helpCommand(sock, chatId, message) {
             const imageBuffer = fs.readFileSync(imagePath);
             await sock.sendMessage(chatId, {
                 image: imageBuffer,
-                caption: menu,
+                caption: `\`\`\`${menu}\`\`\``,
                 contextInfo: {
                     forwardingScore: 999,
                     isForwarded: true,
                     forwardedNewsletterMessageInfo: {
                         newsletterJid: '120363225168536123@newsletter',
-                        newsletterName: 'PRINCE FAVE MDX',
+                        newsletterName: '*PRINCE FAVE MDX*',
                         serverMessageId: -1
                     }
                 }
             }, { quoted: message });
         } else {
             await sock.sendMessage(chatId, {
-                text: menu,
+                text: `\`\`\`${menu}\`\`\``,
                 contextInfo: { forwardingScore: 999, isForwarded: true }
             }, { quoted: message });
         }

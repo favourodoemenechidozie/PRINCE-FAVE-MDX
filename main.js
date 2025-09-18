@@ -140,7 +140,7 @@ const channelInfo = {
         forwardingScore: 1,
         isForwarded: true,
         forwardedNewsletterMessageInfo: {
-            newsletterJid: '120363225168536123@newsletter',
+            newsletterJid: '120363299879944380@newsletter', 
             newsletterName: 'PRINCE FAVE MDX',
             serverMessageId: -1
         }
@@ -992,14 +992,15 @@ async function handleMessages(sock, messageUpdate, printLog) {
                 }
                 break;
             // animu aliases
+        
             case userMessage.startsWith('.nom'):
             case userMessage.startsWith('.poke'):
             case userMessage.startsWith('.cry'):
             case userMessage.startsWith('.kiss'):
             case userMessage.startsWith('.pat'):
-            case userMessage.startsWith('.hug'):
+            case userMessage.startsWith('.hug'):  
             case userMessage.startsWith('.wink'):
-            case userMessage.startsWith('.facepalm'):
+            case userMessage.startsWith('.facepalm'): 
             case userMessage.startsWith('.face-palm'):
             case userMessage.startsWith('.animuquote'):
             case userMessage.startsWith('.quote'):
