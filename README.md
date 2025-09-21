@@ -1,4 +1,4 @@
- PRINCE FAVE MDX
+✨ PRINCE FAVE MDX ✨
 
 This is a WhatsApp Multi-Device Bot built using the Baileys library for group management and entertainment.
 It includes features like tagging all members, games, anti-link, stickers, TikTok downloader, and much more.
@@ -20,7 +20,30 @@ Step 3: Deploy the Bot
 
 For further customization and setup guidance, click the button below:
 
-<div align="center"> <a href="https://youtu.be/-oz_u1iMgf8"> <img src="https://img.shields.io/badge/Deploy Tutorial-dc3545?style=for-the-badge&logo=youtube" alt="YouTube Link"/> </a> <a href="https://bot-hosting.net/?aff=1068419752923508776"> <img src="https://img.shields.io/badge/Deploy on Panel-28a745?style=for-the-badge" alt="Deploy on Panel"/> </a> </div>
+<div align="center">
+  <a href="https://youtube.com/@cotech-1?si=XGEDdFrQOm3QaZpq">
+    <img src="https://img.shields.io/badge/Deploy Tutorial-dc3545?style=for-the-badge&logo=youtube" alt="YouTube Link"/>
+  </a>
+  <a href="https://bot-hosting.net/?aff=1068419752923508776">
+    <img src="https://img.shields.io/badge/Deploy on Panel-28a745?style=for-the-badge" alt="Deploy on Panel"/>
+  </a>
+</div>
+
+<div align="center"> <a href="https://youtube.com/@cotech-1?si=XGEDdFrQOm3QaZpq"> <img src="https://img.shields.io/badge/Deploy Tutorial-dc3545?style=for-the-badge&logo=youtube" alt="YouTube Link"/> </a> <a href="https://bot-hosting.net/?aff=1068419752923508776"> <img src="https://img.shields.io/badge/Deploy on Panel-28a745?style=for-the-badge" alt="Deploy on Panel"/> </a> </div>
+
+### Join the Community
+
+<div align="center">
+  <a href="https://t.me/COtech001">
+    <img src="https://img.shields.io/badge/Join%20Telegram-0078E7?style=for-the-badge&logo=telegram&logoColor=white" alt="Join Telegram"/>
+  </a>
+  <a href=" https://whatsapp.com/channel/0029Vb77pP4A89Mje20udJ32">
+    <img src="https://img.shields.io/badge/Join%20WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" alt="Join WhatsApp channel"/>
+  </a>
+</div>
+
+---
+
 ⚙️ Features
 
 🚀 Tag all group members (.tagall)
@@ -45,33 +68,34 @@ It uses Baileys (MD) to interact with WhatsApp Web API.
 Lightweight, customizable, and easy to extend with more commands.
 Runs in Node.js with QR-based authentication (session system will be added soon).
 
-🛠️ Setup & Installation
-Prerequisites
+### 🛠️ Setup & Installation
 
-Node.js installed
+### Prerequisites
 
-Git installed
+- Node.js installed on your system
+- Git installed (for cloning the repository)
 
-Setup Steps
+### Step-by-Step Setup
 
-Clone the repository:
+1. **Clone the repository:**
 
-git clone https://github.com/favourodoemenechidozie/PRINCE-FAVE-MDX/.git
-cd PRINCE-FAVE-MDX
+    ```bash
+    git clone https://github.com/favourodoemenechidozie/PRINCE-FAVE-MDX.git
+    cd PRINCE-FAVE-MDX
+    ```
 
+2. **Install the dependencies:**
 
-Install dependencies:
+    ```bash
+    npm install
+    ```
 
-npm install
+3. **Run the bot:**
 
+    ```bash
+    node index.js
+    ```
 
-Run the bot:
-
-node index.js
-
-
-Scan the QR code:
-When you run the bot, scan the QR with your WhatsApp Linked Devices option.
 
 ⚠️ Warning
 
