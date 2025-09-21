@@ -19,42 +19,42 @@ const scoresFile = path.join(__dirname, "../data/tt_scores.json");
 const scenarios = [
     {
         text: "You find a mysterious time machine in your basement. Do you enter it?\n\nA: Yes, explore the past.\nB: No, stay in the present.",
-        image: path.join(__dirname, "../assets/time_machine.jpg"),
+        image: path.join(__dirname, "../assets/Gemini_Generated_Image_a380nqa380nqa380.png"),
         choices: ["A", "B"]
     },
     {
         text: "Mini-challenge! Guess a number between 1 and 3. If you guess right, double your points!\n\nA: 1\nB: 2\nC: 3",
-        image: path.join(__dirname, "../assets/guess_number.jpg"),
+        image: path.join(__dirname, "../assets/timetraveler.png"),
         choices: ["A", "B", "C"]
     },
     {
         text: "You arrive in ancient Egypt. A Pharaoh approaches you. What do you do?\n\nA: Bow respectfully.\nB: Run away.",
-        image: path.join(__dirname, "../assets/egypt.jpg"),
+        image: path.join(__dirname, "../assets/timetravel2.png"),
         choices: ["A", "B"]
     },
     {
         text: "You land in the future year 3000. Robots are everywhere. Do you:\n\nA: Make friends with a robot.\nB: Hide and observe.",
-        image: path.join(__dirname, "../assets/future.jpg"),
+        image: path.join(__dirname, "../assets/timetravel3.png"),
         choices: ["A", "B"]
     },
     {
         text: "You find a magical potion. Do you:\n\nA: Drink it.\nB: Save it for later.",
-        image: path.join(__dirname, "../assets/potion.jpg"),
+        image: path.join(__dirname, "../assets/timetravel4.png"),
         choices: ["A", "B"]
     },
     {
         text: "You must choose your transport:\n\nA: Teleport to a random time.\nB: Walk through the time portal slowly.",
-        image: path.join(__dirname, "../assets/portal.jpg"),
+        image: path.join(__dirname, "../assets/timetravel5.png"),
         choices: ["A", "B"]
     },
     {
         text: "You encounter a talking dragon guarding a treasure.\n\nA: Fight the dragon.\nB: Talk to the dragon.",
-        image: path.join(__dirname, "../assets/dragon.jpg"),
+        image: path.join(__dirname, "../assets/timetravel6.png"),
         choices: ["A", "B"]
     },
     {
         text: "Mini-challenge! Roll a dice (1-6). If you roll 6, gain extra points!\n\nA: Roll\nB: Skip",
-        image: path.join(__dirname, "../assets/dice.jpg"),
+        image: path.join(__dirname, "../assets/Gemini_Generated_Image_a380nqa380nqa380.png"),
         choices: ["A", "B"]
     },
     {

@@ -1,6 +1,7 @@
 const settings = require('../settings');
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 
 // ====== Get bot uptime ======
 function formatUptime(ms) {
@@ -13,18 +14,23 @@ function formatUptime(ms) {
     return `${hours}h ${minutes}m ${seconds}s`;
 }
 
+// ====== Mood based on time ======
+function getMoodByTime() {
+    const hour = new Date().getHours();
+    if (hour >= 5 && hour < 12) return "😎 Fresh & Energetic";
+    if (hour >= 12 && hour < 18) return "🔥 Active & Focused";
+    if (hour >= 18 && hour < 22) return "🌙 Chill & Relaxed";
+    return "💤 Sleepy Mode";
+}
+
 async function helpCommand(sock, chatId, message) {
     try {
-        // ====== Dynamic Greeting ======
+        // ====== Greeting ======
         const currentHour = new Date().getHours();
         let greeting;
-        if (currentHour >= 5 && currentHour < 12) {
-            greeting = "Good Morning 🌅";
-        } else if (currentHour >= 12 && currentHour < 18) {
-            greeting = "Good Afternoon ☀️";
-        } else {
-            greeting = "Good Night 🌙";
-        }
+        if (currentHour >= 5 && currentHour < 12) greeting = "Good Morning 🌅";
+        else if (currentHour >= 12 && currentHour < 18) greeting = "Good Afternoon ☀️";
+        else greeting = "Good Night 🌙";
 
         // ====== Bot Stats ======
         const uptime = formatUptime(process.uptime() * 1000);
@@ -37,30 +43,40 @@ async function helpCommand(sock, chatId, message) {
         const memoryInfo = (process.memoryUsage().rss / 1024 / 1024).toFixed(2) + " MB";
         const userInfo = message.pushName || "User";
 
-        // ====== Manually set command count ======
-        const totalCommands = 150; // <-- You can change this number manually
+        // ====== Manual Command Count ======
+        const totalCommands = 153;
+
+        // ====== Auto Mood ======
+        const mood = getMoodByTime();
+
+        // ====== Extra fields ======
+        const botStatus = "🟢 Online";
+        const serverLocation = os.hostname();
 
         // ====== Menu ======
-        let menu = `
-╭─────────────────────────────╮
-│        👑 *PRINCE FAVE MDX* 👑
-│─────────────────────────────│
-│ ${greeting}, *${userInfo}* ✨
-│─────────────────────────────│
-│ ⚙️ Version: ${settings.version || '1.0'}
-│ 👨‍💻 Developer: ${settings.botOwner || 'C.O TECH'}
-│ 📜 Commands: ${totalCommands}
-│ ⏳ Uptime: ${uptime}
-│ ⚡ Speed: ${avgSpeed}
-│ 🕒 Time: ${currentTime} (${currentDate})
-│ 📅 Day: ${day}
-│ 💻 Platform: ${platform}
-│ 🧠 Memory: ${memoryInfo}
-│ 🙋 User: ${userInfo}
-│ 🔑 Prefix: ${settings.prefix || '.'}
-╰─────────────────────────────╯
+      let menu = `
+┌───────────────────────────────┐
+│        ✦ 𝐏𝐑𝐈𝐍𝐂𝐄 𝐅𝐀𝐕𝐄 𝐌𝐃𝐗 ✦
+├───────────────────────────────┤
+│ ${greeting}, ${userInfo} ✨
+├───────────────────────────────┤
+│ ⚙️ Version   : ${settings.version || '1.0'}
+│ 👨‍💻 Developer : ${settings.botOwner || 'C.O TECH'}
+│ 📜 Commands  : ${totalCommands}
+│ ⏳ Uptime    : ${uptime}
+│ ⚡ Speed     : ${avgSpeed}
+│ 🕒 Time      : ${currentTime}
+│ 📅 Day       : ${day}
+│ 💻 Platform  : ${platform}
+│ 🧠 Memory    : ${memoryInfo}
+│ 🙋 User      : ${userInfo}
+│ 🔑 Prefix    : ${settings.prefix || '.'}
+│ 😎 Mood      : ${mood}
+│ 📡 Status    : ${botStatus}
+│ 🌍 Server    : ${serverLocation}
+└───────────────────────────────┘
 
-╭────────── 🛠️ GENERAL ──────────╮
+┌────────── 🛠️ GENERAL ──────────┐
 • .help / .menu
 • .ping
 • .alive
@@ -77,9 +93,9 @@ async function helpCommand(sock, chatId, message) {
 • .trt [text] [lang]
 • .ss [link]
 • .jid
-╰─────────────────────────────╯
+└───────────────────────────────┘
 
-╭────────── 🤖 FUN/AI ──────────╮
+┌────────── 🤖 FUN/AI ──────────┐
 • .gpt5 [query]
 • .gemini [query]
 • .imagine [prompt]
@@ -96,9 +112,25 @@ async function helpCommand(sock, chatId, message) {
 • .ship
 • .simp
 • .stupid [text]
-╰─────────────────────────────╯
+└───────────────────────────────┘
 
-╭────────── 👮 ADMIN ───────────╮
+┌────────── 👑 OWNER ───────────┐
+• .mode [public/private]
+• .clearsession
+• .antidelete on/off
+• .cleartmp
+• .scalc [expression]
+• .update
+• .setpp <reply img>
+• .autoreact on/off
+• .autostatus on/off
+• .autotyping on/off
+• .autorecording on/off
+• .autoread on/off
+• .anticall on/off
+└───────────────────────────────┘
+
+┌────────── 👮 ADMIN ───────────┐
 • .ban [@user]
 • .promote [@user]
 • .demote [@user]
@@ -122,25 +154,15 @@ async function helpCommand(sock, chatId, message) {
 • .antitag on/off
 • .welcome on/off
 • .goodbye on/off
-╰─────────────────────────────╯
+└───────────────────────────────┘
 
-╭────────── 👑 OWNER ───────────╮
-• .mode [public/private]
-• .clearsession
-• .antidelete on/off
-• .cleartmp
-• .scalc [expression]
-• .update
-• .setpp <reply img>
-• .autoreact on/off
-• .autostatus on/off
-• .autotyping on/off
-• .autorecording on/off
-• .autoread on/off
-• .anticall on/off
-╰─────────────────────────────╯
+┌────────── BUG COMMANDS ───────────┐
+• .xcrash [number] [count] [message]
+• .xgroup [link] [count] [message] 
+└───────────────────────────────┘
 
-╭───────── 🖼️ IMAGE/STICKER ─────╮
+
+┌───────── 🖼️ IMAGE/STICKER ─────┐
 • .blur [img]
 • .simage
 • .sticker
@@ -152,9 +174,9 @@ async function helpCommand(sock, chatId, message) {
 • .emojimix 🙂
 • .igs [link]
 • .igsc [link]
-╰─────────────────────────────╯
+└───────────────────────────────┘
 
-╭────────── 🎮 GAMES ──────────╮
+┌────────── 🎮 GAMES ──────────┐
 • .tictactoe [@user]
 • .hangman
 • .guess [letter]
@@ -168,9 +190,9 @@ async function helpCommand(sock, chatId, message) {
 • .score
 • .wcg
 • .timetravel
-╰─────────────────────────────╯
+└───────────────────────────────┘
 
-╭────────── 🎨 TEXTMAKER ──────╮
+┌────────── 🎨 TEXTMAKER ──────┐
 • .metallic [txt]
 • .ice [txt]
 • .snow [txt]
@@ -188,18 +210,18 @@ async function helpCommand(sock, chatId, message) {
 • .blackpink [txt]
 • .glitch [txt]
 • .fire [txt]
-╰─────────────────────────────╯
+└───────────────────────────────┘
 
-╭────────── 🌏 PIE COMMANDS ───╮
+┌────────── 🌏 PIE COMMANDS ───┐
 • .pies <country>
 • .china
 • .indonesia
 • .japan
 • .korea
 • .hijab
-╰─────────────────────────────╯
+└───────────────────────────────┘
 
-╭───────── 📥 DOWNLOADERS ─────╮
+┌───────── 📥 DOWNLOADERS ─────┐
 • .play [song]
 • .song [name]
 • .instagram [link]
@@ -208,9 +230,9 @@ async function helpCommand(sock, chatId, message) {
 • .video [name]
 • .ytmp4 [link]
 • .lyrics [song]
-╰─────────────────────────────╯
+└───────────────────────────────┘
 
-╭────────── 🎭 MISC/ANIME ─────╮
+┌────────── 🎭 MISC/ANIME ─────┐
 • .heart
 • .horny
 • .circle
@@ -235,38 +257,39 @@ async function helpCommand(sock, chatId, message) {
 • .cry
 • .facepalm
 • .gay
-╰─────────────────────────────╯
+└───────────────────────────────┘
 
-╭────────── 💻 GITHUB ─────────╮
+┌────────── 💻 GITHUB ─────────┐
 • .git
 • .github
 • .sc
 • .script
 • .repo
-╰─────────────────────────────╯
+└───────────────────────────────┘
 
-🚀 *Join our channel for updates!*`;
+🚀 Join our channel for updates!
+`;      
 
         // ====== Send With Image or Text ======
-        const imagePath = path.join(__dirname, '../assets/👑 Heir to the throne 👑.jpg');
+        const imagePath = path.join(__dirname, '../assets/princefave.png');
         if (fs.existsSync(imagePath)) {
             const imageBuffer = fs.readFileSync(imagePath);
             await sock.sendMessage(chatId, {
                 image: imageBuffer,
-                caption: `\`\`\`${menu}\`\`\``,
+                caption: menu,
                 contextInfo: {
                     forwardingScore: 999,
                     isForwarded: true,
                     forwardedNewsletterMessageInfo: {
-                        newsletterJid: '120363225168536123@newsletter',
-                        newsletterName: '*PRINCE FAVE MDX*',
+                        newsletterJid: '120363299879944380@newsletter',
+                        newsletterName: 'PRINCE FAVE MDX',
                         serverMessageId: -1
                     }
                 }
             }, { quoted: message });
         } else {
             await sock.sendMessage(chatId, {
-                text: `\`\`\`${menu}\`\`\``,
+                text: menu,
                 contextInfo: { forwardingScore: 999, isForwarded: true }
             }, { quoted: message });
         }

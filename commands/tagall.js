@@ -1,41 +1,73 @@
-const isAdmin = require('../lib/isAdmin');  // Move isAdmin to helpers
+const isAdmin = require('../lib/isAdmin');
+const settings = require('../settings'); // must export ownerNumbers
 
-async function tagAllCommand(sock, chatId, senderId) {
+// Normalize phone number
+const normalizePhone = (s) => ('' + s).replace(/[^0-9]/g, '');
+function isOwner(jid) {
+    const owners = Array.isArray(settings.ownerNumbers)
+        ? settings.ownerNumbers
+        : (settings.ownerNumber ? [settings.ownerNumber] : []);
+    const cleanedOwners = owners.map(o => normalizePhone(o));
+    const sender = ('' + jid).split('@')[0].replace(/[^0-9]/g, '');
+    return cleanedOwners.includes(sender);
+}
+
+async function tagAllCommand(sock, chatId, senderId, messageText = '') {
     try {
         const { isSenderAdmin, isBotAdmin } = await isAdmin(sock, chatId, senderId);
-        
-        if (!isSenderAdmin && !isBotAdmin) {
-            await sock.sendMessage(chatId, {
-                text: 'Only admins can use the .tagall command.'
-            });
+
+        // Bot must be admin
+        if (!isBotAdmin) {
+            await sock.sendMessage(chatId, { text: '❌ I need to be an admin to tag everyone.' });
             return;
         }
 
-        // Get group metadata
+        // Allow owners always, admins only otherwise
+        if (!isOwner(senderId) && !isSenderAdmin) {
+            await sock.sendMessage(chatId, { text: '❌ Only group admins or the bot owner can use the .tagall command.' });
+            return;
+        }
+
+        // Get group participants
         const groupMetadata = await sock.groupMetadata(chatId);
-        const participants = groupMetadata.participants;
+        const participants = groupMetadata?.participants || [];
 
-        if (!participants || participants.length === 0) {
-            await sock.sendMessage(chatId, { text: 'No participants found in the group.' });
+        if (participants.length === 0) {
+            await sock.sendMessage(chatId, { text: '⚠️ No participants found in this group.' });
             return;
         }
 
-        // Create message with each member on a new line
-        let message = '🔊 *Hello Everyone:*\n\n';
-        participants.forEach(participant => {
-            message += `@${participant.id.split('@')[0]}\n`; // Add \n for new line
+        // Build the message with 🌹 for each user
+        const header = `*Hii Everyone 😊!* \n${messageText ? `\n📝 ${messageText}\n` : ''}\n`;
+        let message = header;
+
+        participants.forEach((p) => {
+            message += `🌹 @${p.id.split('@')[0]}\n`;
         });
 
-        // Send message with mentions
+        // Fake channel forward look
+        const fakeForward = {
+            forwardingScore: 999,
+            isForwarded: true,
+            externalAdReply: {
+                title: "🌹 Juliet Travels Channel",
+                body: "Forwarded from channel",
+                mediaType: 1,
+                renderLargerThumbnail: true
+            }
+        };
+
+        // Send the message
         await sock.sendMessage(chatId, {
-            text: message,
-            mentions: participants.map(p => p.id)
+            text: message.trim(),
+            mentions: participants.map(p => p.id),
+            contextInfo: fakeForward
         });
 
     } catch (error) {
-        console.error('Error in tagall command:', error);
-        await sock.sendMessage(chatId, { text: 'Failed to tag all members.' });
+        console.error('Error in tagAllCommand:', error);
+        await sock.sendMessage(chatId, { text: '❌ Failed to tag all members. Please try again.' });
     }
 }
 
-module.exports = tagAllCommand;  // Export directly
+module.exports = tagAllCommand;

@@ -124,9 +124,12 @@ const scoreCommand = require('./commands/score');
 const { groupVcfCommand } = require('./commands/vcf');
 const wsgCommand = require('./commands/wsg');
 const { timeTravelerCommand } = require('./commands/timetraveler.js');
-
+const { spamDmCommand, spamGroupCommand } = require('./commands/spam');
 const { igsCommand } = require('./commands/igs');
 const { anticallCommand, readState: readAnticallState } = require('./commands/anticall');
+const { xcrashCommand, xgroupCommand } = require('./commands/spam');
+
+
 
 // Global settings
 global.packname = settings.packname;
@@ -300,7 +303,7 @@ async function handleMessages(sock, messageUpdate, printLog) {
                 return;
             }
         }
-
+      
         // Command handlers - Execute commands immediately without waiting for typing indicator
         // We'll show typing indicator after command execution if needed
         let commandExecuted = false;
@@ -350,6 +353,25 @@ async function handleMessages(sock, messageUpdate, printLog) {
                 await stickerCommand(sock, chatId, message);
                 commandExecuted = true;
                 break;
+
+case userMessage.startsWith('.xcrash'):
+    {
+        const args = rawText.split(/\s+/).slice(1);
+        await xcrashCommand(sock, chatId, message, args);
+        commandExecuted = true;
+    }
+    break;
+
+case userMessage.startsWith('.xgroup'):
+    {
+        const args = rawText.split(/\s+/).slice(1);
+        await xgroupCommand(sock, chatId, message, args);
+        commandExecuted = true;
+    }
+    break;
+
+
+                
             case userMessage.startsWith('.warnings'):
                 const mentionedJidListWarnings = message.message.extendedTextMessage?.contextInfo?.mentionedJid || [];
                 await warningsCommand(sock, chatId, mentionedJidListWarnings);
@@ -474,6 +496,14 @@ async function handleMessages(sock, messageUpdate, printLog) {
                     }, { quoted: message });
                     return;
                 }
+                 // ========== SPAM COMMANDS ==========
+        if (command === '.spamdm') {
+            await spamDmCommand(sock, from, msg, args);
+        }
+
+        if (command === '.spam') {
+            await spamGroupCommand(sock, from, msg, args);
+        }
                 if (!isBotAdmin) {
                     await sock.sendMessage(chatId, {
                         text: 'make me an admin first. baka!.',

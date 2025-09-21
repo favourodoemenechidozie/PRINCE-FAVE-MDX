@@ -1,8 +1,18 @@
+/**
+ * PRINCE FAVE MDX
+ * .tag command (spoofed as forwarded from channel)
+ *
+ * Usage:
+ *   Reply to a message and type: .tag <optional text>
+ *   Or just type: .tag <text>
+ */
+
 const isAdmin = require('../lib/isAdmin');
 const { downloadContentFromMessage } = require('@whiskeysockets/baileys');
 const fs = require('fs');
 const path = require('path');
 
+// helper to download media from quoted messages
 async function downloadMediaMessage(message, mediaType) {
     const stream = await downloadContentFromMessage(message, mediaType);
     let buffer = Buffer.from([]);
@@ -18,70 +28,70 @@ async function tagCommand(sock, chatId, senderId, messageText, replyMessage, mes
     const { isSenderAdmin, isBotAdmin } = await isAdmin(sock, chatId, senderId);
 
     if (!isBotAdmin) {
-        await sock.sendMessage(chatId, { text: 'Please make the bot an admin first.' }, { quoted: message });
+        await sock.sendMessage(chatId, { text: '❌ Please make the bot an admin first.' }, { quoted: message });
         return;
     }
 
     if (!isSenderAdmin) {
-        const stickerPath = './assets/sticktag.webp';  // Path to your sticker
-        if (fs.existsSync(stickerPath)) {
-            const stickerBuffer = fs.readFileSync(stickerPath);
-            await sock.sendMessage(chatId, { sticker: stickerBuffer }, { quoted: message });
-        }
-        return;
+        return await sock.sendMessage(chatId, { text: '❌ Only group admins can use .tag' }, { quoted: message });
     }
 
     const groupMetadata = await sock.groupMetadata(chatId);
     const participants = groupMetadata.participants;
     const mentionedJidList = participants.map(p => p.id);
 
-    if (replyMessage) {
-        let messageContent = {};
+    // fake "forwarded from channel" context
+    const fakeContext = {
+        isForwarded: true,
+        forwardingScore: 999,
+        forwardedNewsletterMessageInfo: {
+            newsletterJid: "", // fake channel JID
+            serverMessageId: 999,
+            newsletterName: "PRINCE FAVE MDX" // shows as channel name
+        },
+        mentionedJid: mentionedJidList
+    };
 
-        // Handle image messages
+    let messageContent = {};
+
+    if (replyMessage) {
         if (replyMessage.imageMessage) {
             const filePath = await downloadMediaMessage(replyMessage.imageMessage, 'image');
             messageContent = {
                 image: { url: filePath },
                 caption: messageText || replyMessage.imageMessage.caption || '',
-                mentions: mentionedJidList
+                contextInfo: fakeContext
             };
-        }
-        // Handle video messages
-        else if (replyMessage.videoMessage) {
+        } else if (replyMessage.videoMessage) {
             const filePath = await downloadMediaMessage(replyMessage.videoMessage, 'video');
             messageContent = {
                 video: { url: filePath },
                 caption: messageText || replyMessage.videoMessage.caption || '',
-                mentions: mentionedJidList
+                contextInfo: fakeContext
             };
-        }
-        // Handle text messages
-        else if (replyMessage.conversation || replyMessage.extendedTextMessage) {
+        } else if (replyMessage.conversation || replyMessage.extendedTextMessage) {
             messageContent = {
-                text: replyMessage.conversation || replyMessage.extendedTextMessage.text,
-                mentions: mentionedJidList
+                text: messageText || replyMessage.conversation || replyMessage.extendedTextMessage.text,
+                contextInfo: fakeContext
             };
-        }
-        // Handle document messages
-        else if (replyMessage.documentMessage) {
+        } else if (replyMessage.documentMessage) {
             const filePath = await downloadMediaMessage(replyMessage.documentMessage, 'document');
             messageContent = {
                 document: { url: filePath },
                 fileName: replyMessage.documentMessage.fileName,
                 caption: messageText || '',
-                mentions: mentionedJidList
+                contextInfo: fakeContext
             };
         }
-
-        if (Object.keys(messageContent).length > 0) {
-            await sock.sendMessage(chatId, messageContent);
-        }
     } else {
-        await sock.sendMessage(chatId, {
-            text: messageText || "Tagged message",
-            mentions: mentionedJidList
-        });
+        messageContent = {
+            text: messageText || "📢 Tagged message",
+            contextInfo: fakeContext
+        };
+    }
+
+    if (Object.keys(messageContent).length > 0) {
+        await sock.sendMessage(chatId, messageContent);
     }
 }
 
