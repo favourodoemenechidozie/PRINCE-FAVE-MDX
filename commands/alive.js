@@ -28,7 +28,7 @@ async function aliveCommand(sock, chatId, message) {
                         `>  Powered by C.O TECH `;
 
         // 📸 Path to your alive image
-        const imagePath = "./assets/👑 Heir to the throne 👑 (1).jpg"; 
+        const imagePath = "./assets/princefave.png"; 
 
         await sock.sendMessage(chatId, {
             image: fs.readFileSync(imagePath),
