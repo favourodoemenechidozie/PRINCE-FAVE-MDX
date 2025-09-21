@@ -113,7 +113,7 @@ Do not use for spam or illegal purposes.
 
 📜 Copyright Notice
 
-Copyright (c) 2024 Prince Fave
+Copyright (c) 2025 C.O TECH
 
 This project contains code from:
 
