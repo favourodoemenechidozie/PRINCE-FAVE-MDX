@@ -1,4 +1,4 @@
-✨ PRINCE FAVE MDX ✨
+                                ✨ PRINCE FAVE MDX ✨
 
 This is a WhatsApp Multi-Device Bot built using the Baileys library for group management and entertainment.
 It includes features like tagging all members, games, anti-link, stickers, TikTok downloader, and much more.
@@ -29,7 +29,7 @@ For further customization and setup guidance, click the button below:
   </a>
 </div>
 
-<div align="center"> <a href="https://youtube.com/@cotech-1?si=XGEDdFrQOm3QaZpq"> <img src="https://img.shields.io/badge/Deploy Tutorial-dc3545?style=for-the-badge&logo=youtube" alt="YouTube Link"/> </a> <a href="https://bot-hosting.net/?aff=1068419752923508776"> <img src="https://img.shields.io/badge/Deploy on Panel-28a745?style=for-the-badge" alt="Deploy on Panel"/> </a> </div>
+
 
 ### Join the Community
 
