@@ -1,16 +1,16 @@
-🤖 PRINCE FAVE MDX
+ PRINCE FAVE MDX
 
 This is a WhatsApp Multi-Device Bot built using the Baileys library for group management and entertainment.
 It includes features like tagging all members, games, anti-link, stickers, TikTok downloader, and much more.
 Designed to make WhatsApp groups more fun and easier to manage.
 
-<div align="center"> <a href="https://git.io/typing-svg"> <img src="https://readme-typing-svg.demolab.com?font=Ribeye&size=50&pause=1000&color=33ff00&center=true&width=910&height=100&lines=PRINCE+FAVE+MDX;Multi+Device+Whatsapp+Bot;Coded+By+Prince+Fave" alt="Typing SVG" /> </a> </div> <div align="center"> <img src="https://github.com/mruniquehacker/Knightbot-MD/blob/main/assets/bot_image.jpg" alt="Prince Fave MDX" height="300"> </div>
+<div align="center"> <a href="https://git.io/typing-svg"> <img src="https://readme-typing-svg.demolab.com?font=Ribeye&size=50&pause=1000&color=33ff00&center=true&width=910&height=100&lines=PRINCE+FAVE+MDX;Multi+Device+Whatsapp+Bot;Coded+By+Prince+Fave" alt="Typing SVG" /> </a> </div> <div align="center"> <img src="https://github.com/favourodoemenechidozie/PRINCE-FAVE-MDX/blob/main/assets/princefave.png" alt="Prince Fave MDX" height="300"> </div>
 🚀 Steps to Deploy
 Step 1: Fork the Repository
 
 Click the button below to fork the PRINCE FAVE MDX repository to your GitHub account:
 
-<div align="center"> <a href="https://github.com/mruniquehacker/Knightbot-MD/fork"> <img src="https://img.shields.io/badge/Fork-Repository-blue?style=for-the-badge" alt="Fork the repository"/> </a> </div>
+<div align="center"> <a href="https://github.com/favourodoemenechidozie/PRINCE-FAVE-MDX/fork"> <img src="https://img.shields.io/badge/Fork-Repository-blue?style=for-the-badge" alt="Fork the repository"/> </a> </div>
 Step 2: Get Session ID
 
 ⚠️ Note: The Session ID Generator is not yet ready.
@@ -56,8 +56,8 @@ Setup Steps
 
 Clone the repository:
 
-git clone https://github.com/mruniquehacker/Knightbot-MD.git
-cd Knightbot-MD
+git clone https://github.com/favourodoemenechidozie/PRINCE-FAVE-MDX/.git
+cd PRINCE-FAVE-MDX
 
 
 Install dependencies:
