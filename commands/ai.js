@@ -33,7 +33,7 @@ async function aiCommand(sock, chatId, message) {
                 text: "Please provide a question after .gpt5 or .gemini"
             }, {quoted:message});
         }
-
+    
         try {
             // Show processing message
             await sock.sendMessage(chatId, {

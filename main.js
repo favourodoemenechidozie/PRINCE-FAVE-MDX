@@ -125,9 +125,13 @@ const { groupVcfCommand } = require('./commands/vcf');
 const wsgCommand = require('./commands/wsg');
 const { timeTravelerCommand } = require('./commands/timetraveler.js');
 const { spamDmCommand, spamGroupCommand } = require('./commands/spam');
+const soraCommand = require('./commands/sora');
 const { igsCommand } = require('./commands/igs');
 const { anticallCommand, readState: readAnticallState } = require('./commands/anticall');
 const { xcrashCommand, xgroupCommand } = require('./commands/spam');
+const getJidCommand = require('./commands/getjid');  // import it
+
+// then in your switch/case:
 
 
 
@@ -143,7 +147,7 @@ const channelInfo = {
         forwardingScore: 1,
         isForwarded: true,
         forwardedNewsletterMessageInfo: {
-            newsletterJid: '120363299879944380@newsletter', 
+            newsletterJid: '120363401954819608@newsletter', 
             newsletterName: 'PRINCE FAVE MDX',
             serverMessageId: -1
         }
@@ -336,6 +340,12 @@ async function handleMessages(sock, messageUpdate, printLog) {
                     }
                 }
                 break;
+
+                case userMessage === '.getjid' || userMessage === '.jid':
+    await getJidCommand(sock, chatId, message);
+    commandExecuted = true;
+    break;
+
             case userMessage === '.unmute':
                 await unmuteCommand(sock, chatId, senderId);
                 break;

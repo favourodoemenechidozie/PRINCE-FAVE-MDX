@@ -206,7 +206,7 @@ const localDares = [
 ];
 
 // ✅ Image for dare command
-const dareImage = fs.readFileSync("../assets/Time For Facts.jpg"); 
+const dareImage = fs.readFileSync("../assets/timeforfact.jpg"); 
 
 
 async function dareCommand(sock, chatId, message) {
