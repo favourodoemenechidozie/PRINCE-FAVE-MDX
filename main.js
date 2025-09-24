@@ -132,7 +132,6 @@ const { xcrashCommand, xgroupCommand } = require('./commands/spam');
 const getJidCommand = require('./commands/getjid');
 const { pmblockerCommand, readState: readPmBlockerState } = require('./commands/pmblocker'); 
 const settingsCommand = require('./commands/settings');
-const soraCommand = require('./commands/sora');
 const spotifyCommand = require('./commands/spotify');
 const urlCommand = require('./commands/url');
 // import it
@@ -355,6 +354,9 @@ async function handleMessages(sock, messageUpdate, printLog) {
 
  case userMessage.startsWith('.tourl') || userMessage.startsWith('.url'):
                 await urlCommand(sock, chatId, message);
+                break;
+                case userMessage.startsWith('.sora'):
+                await soraCommand(sock, chatId, message);
                 break;
 
             case userMessage === '.unmute':

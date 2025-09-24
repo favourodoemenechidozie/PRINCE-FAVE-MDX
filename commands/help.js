@@ -44,7 +44,7 @@ async function helpCommand(sock, chatId, message) {
         const userInfo = message.pushName || "User";
 
         // ====== Manual Command Count ======
-        const totalCommands = 202;
+        const totalCommands = 204;
 
         // ====== Auto Mood ======
         const mood = getMoodByTime();
@@ -107,6 +107,7 @@ async function helpCommand(sock, chatId, message) {
 • .imagine [prompt]
 • .flux [prompt]
 • .remini [reply img]
+• .sora [prompt]
 • .compliment
 • .insult
 • .flirt
@@ -152,6 +153,7 @@ async function helpCommand(sock, chatId, message) {
 • .groupinfo
 • .vcf
 • .tag [message]
+• .hidetag [message]
 • .tagall
 • .kickall
 • .kickallsoft

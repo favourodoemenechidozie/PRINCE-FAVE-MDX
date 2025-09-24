@@ -13,8 +13,7 @@ const fs = require('fs');
 const fetch = require('node-fetch');
 
 
-const imagePath = '../assets/Time For Facts.jpg'; // Path to your image file
-const dareImage = fs.readFileSync(imagePath);
+
 // -------------------------
 // Local Fallback Truths (200 items)
 // -------------------------
@@ -22,7 +21,7 @@ const localTruths = [
   "What is your biggest fear?",
   "Have you ever lied to your best friend?",
   "Who was your first crush?",
-   "What is your biggest fear?",
+   "What is your biggest fear?", 
   "Have you ever lied to your best friend?",
   "Who was your first crush?",
   "What is the most embarrassing thing you’ve done?",
