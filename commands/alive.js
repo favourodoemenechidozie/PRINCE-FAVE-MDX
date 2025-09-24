@@ -37,7 +37,7 @@ async function aliveCommand(sock, chatId, message) {
                 forwardingScore: 999,
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
-                    newsletterJid: '120363299879944380@newsletter', // your channel JID
+                    newsletterJid: '120363401954819608@newsletter', // your channel JID
                     newsletterName: 'PRINCE FAVE MDX',
                     serverMessageId: -1
                 }

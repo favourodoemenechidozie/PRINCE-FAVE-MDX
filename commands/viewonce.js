@@ -7,7 +7,7 @@ async function viewonceCommand(sock, chatId, message) {
     const quotedVideo = quoted?.videoMessage;
 
     if (quotedImage && quotedImage.viewOnce) {
-        // Download and send the image
+        // Download and send the image 
         const stream = await downloadContentFromMessage(quotedImage, 'image');
         let buffer = Buffer.from([]);
         for await (const chunk of stream) buffer = Buffer.concat([buffer, chunk]);

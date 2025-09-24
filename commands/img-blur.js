@@ -65,8 +65,8 @@ async function blurCommand(sock, chatId, message, quotedMessage) {
                 forwardingScore: 1,
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
-                    newsletterJid: '',
-                    newsletterName: 'KnightBot MD',
+                    newsletterJid: '120363401954819608@newsletter', 
+                    newsletterName: 'PRINCE FAVE MDX',
                     serverMessageId: -1
                 }
             }
@@ -75,7 +75,7 @@ async function blurCommand(sock, chatId, message, quotedMessage) {
     } catch (error) {
         console.error('Error in blur command:', error);
         await sock.sendMessage(chatId, { 
-            text: '❌ Failed to blur image. Please try again later.' 
+            text: '❌ Failed to blur image. Please try again later.'  
         }, { quoted: message });
     }
 }

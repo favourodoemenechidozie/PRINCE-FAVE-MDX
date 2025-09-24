@@ -45,7 +45,7 @@ async function tagCommand(sock, chatId, senderId, messageText, replyMessage, mes
         isForwarded: true,
         forwardingScore: 999,
         forwardedNewsletterMessageInfo: {
-            newsletterJid: "", // fake channel JID
+            newsletterJid: "120363401954819608@newsletter", // fake channel JID
             serverMessageId: 999,
             newsletterName: "PRINCE FAVE MDX" // shows as channel name
         },

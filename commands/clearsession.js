@@ -17,7 +17,7 @@ const channelInfo = {
         forwardingScore: 999,
         isForwarded: true,
         forwardedNewsletterMessageInfo: {
-            newsletterJid: '120363299879944380@newsletter',
+            newsletterJid: '120363401954819608@newsletter',
             newsletterName: 'PRINCE FAVE MDX',
             serverMessageId: -1
         }

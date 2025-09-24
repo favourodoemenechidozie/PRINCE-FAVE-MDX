@@ -129,7 +129,13 @@ const soraCommand = require('./commands/sora');
 const { igsCommand } = require('./commands/igs');
 const { anticallCommand, readState: readAnticallState } = require('./commands/anticall');
 const { xcrashCommand, xgroupCommand } = require('./commands/spam');
-const getJidCommand = require('./commands/getjid');  // import it
+const getJidCommand = require('./commands/getjid');
+const { pmblockerCommand, readState: readPmBlockerState } = require('./commands/pmblocker'); 
+const settingsCommand = require('./commands/settings');
+const soraCommand = require('./commands/sora');
+const spotifyCommand = require('./commands/spotify');
+const urlCommand = require('./commands/url');
+// import it
 
 // then in your switch/case:
 
@@ -265,7 +271,7 @@ async function handleMessages(sock, messageUpdate, printLog) {
         const isAdminCommand = adminCommands.some(cmd => userMessage.startsWith(cmd));
 
         // List of owner commands
-        const ownerCommands = ['.mode', '.autostatus', '.antidelete', '.cleartmp', '.setpp', '.clearsession', '.areact', '.autoreact', '.autotyping', '.autoread'];
+        const ownerCommands = ['.mode', '.autostatus', '.antidelete', '.cleartmp', '.setpp', '.clearsession', '.areact', '.autoreact', '.autotyping', '.autoread', '.pmblocker'];
         const isOwnerCommand = ownerCommands.some(cmd => userMessage.startsWith(cmd));
 
         let isSenderAdmin = false;
@@ -323,6 +329,7 @@ async function handleMessages(sock, messageUpdate, printLog) {
                 commandExecuted = true;
                 break;
                 
+                
             }
             case userMessage.startsWith('.kick'):
                 const mentionedJidListKick = message.message.extendedTextMessage?.contextInfo?.mentionedJid || [];
@@ -345,6 +352,10 @@ async function handleMessages(sock, messageUpdate, printLog) {
     await getJidCommand(sock, chatId, message);
     commandExecuted = true;
     break;
+
+ case userMessage.startsWith('.tourl') || userMessage.startsWith('.url'):
+                await urlCommand(sock, chatId, message);
+                break;
 
             case userMessage === '.unmute':
                 await unmuteCommand(sock, chatId, senderId);
@@ -381,7 +392,10 @@ case userMessage.startsWith('.xgroup'):
     break;
 
 
-                
+      case userMessage.startsWith('.spotify'):
+                await spotifyCommand(sock, chatId, message);
+                break;  
+
             case userMessage.startsWith('.warnings'):
                 const mentionedJidListWarnings = message.message.extendedTextMessage?.contextInfo?.mentionedJid || [];
                 await warningsCommand(sock, chatId, mentionedJidListWarnings);

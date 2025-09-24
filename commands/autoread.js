@@ -34,7 +34,7 @@ async function autoreadCommand(sock, chatId, message) {
                     forwardingScore: 1,
                     isForwarded: true,
                     forwardedNewsletterMessageInfo: {
-                        newsletterJid: '120363225168536123@newsletter',
+                        newsletterJid: '120363401954819608@newsletter',
                         newsletterName: 'PRINCE FAVE MDX',
                         serverMessageId: -1
                     }
@@ -65,7 +65,7 @@ async function autoreadCommand(sock, chatId, message) {
                         forwardingScore: 1,
                         isForwarded: true,
                         forwardedNewsletterMessageInfo: {
-                            newsletterJid: '120363225168536123@newsletter',
+                            newsletterJid: '120363401954819608@newsletter',
                             newsletterName: 'PRINCE FAVE MDX',
                             serverMessageId: -1
                         }
@@ -88,7 +88,7 @@ async function autoreadCommand(sock, chatId, message) {
                 forwardingScore: 1,
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
-                    newsletterJid: '120363225168536123@newsletter',
+                    newsletterJid: '120363401954819608@newsletter',
                     newsletterName: 'PRINCE FAVE MDX',
                     serverMessageId: -1
                 }
@@ -103,7 +103,7 @@ async function autoreadCommand(sock, chatId, message) {
                 forwardingScore: 1,
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
-                    newsletterJid: '120363225168536123@newsletter',
+                    newsletterJid: '120363401954819608@newsletter',
                     newsletterName: 'PRINCE FAVE MDX',
                     serverMessageId: -1
                 }

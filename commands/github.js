@@ -17,7 +17,7 @@ const path = require('path');
 
 async function githubCommand(sock, chatId, message) {
   try {
-    const res = await fetch('https://api.github.com/repos/favourodoemene/PRINCE-FAVE-MDX');
+    const res = await fetch('https://api.github.com/repos/favourodoemenechidozie/PRINCE-FAVE-MDX');
     if (!res.ok) throw new Error('Error fetching repository data');
     const json = await res.json();
 

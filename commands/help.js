@@ -44,7 +44,7 @@ async function helpCommand(sock, chatId, message) {
         const userInfo = message.pushName || "User";
 
         // ====== Manual Command Count ======
-        const totalCommands = 201;
+        const totalCommands = 202;
 
         // ====== Auto Mood ======
         const mood = getMoodByTime();
@@ -94,6 +94,11 @@ async function helpCommand(sock, chatId, message) {
 • .ss [link]
 • .jid
 • .getjid 
+• .autosend - for stealing peeps whatsapp post
+• .settings - bot settings
+• .sora [text]
+• .spotify
+• .url / .tourl [media]
 └───────────────────────────────┘
 
 ┌────────── 🤖 FUN/AI ──────────┐
@@ -231,6 +236,7 @@ async function helpCommand(sock, chatId, message) {
 • .video [name]
 • .ytmp4 [link]
 • .lyrics [song]
+• .spotify [song/artist/keywords]
 └───────────────────────────────┘
 
 ┌────────── 🎭 MISC/ANIME ─────┐
@@ -282,7 +288,7 @@ async function helpCommand(sock, chatId, message) {
                     forwardingScore: 999,
                     isForwarded: true,
                     forwardedNewsletterMessageInfo: {
-                        newsletterJid: '120363299879944380@newsletter',
+                        newsletterJid: '120363401954819608@newsletter',
                         newsletterName: 'PRINCE FAVE MDX',
                         serverMessageId: -1
                     }

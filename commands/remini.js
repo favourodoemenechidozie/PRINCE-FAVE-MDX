@@ -100,7 +100,7 @@ async function reminiCommand(sock, chatId, message, args) {
 │   ✨ *IMAGE ENHANCED!* ✨
 │─────────────────────────│
 │ 📸 Enhanced using Remini AI
-│ 🤖 Powered by *PRINCE FAVE MDX*
+│  Powered by *PRINCE FAVE MDX*
 │ 
 │ Enjoy your sharper image! 🚀
 ╰───────────👑───────────╯`.trim()

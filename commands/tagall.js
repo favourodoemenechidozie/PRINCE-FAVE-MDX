@@ -1,5 +1,5 @@
 const isAdmin = require('../lib/isAdmin');
-const settings = require('../settings'); // must export ownerNumbers
+const settings = require('../settings'); // must export ownerNumbers & channelJid
 
 // Normalize phone number
 const normalizePhone = (s) => ('' + s).replace(/[^0-9]/g, '');
@@ -45,15 +45,14 @@ async function tagAllCommand(sock, chatId, senderId, messageText = '') {
             message += `🌹 @${p.id.split('@')[0]}\n`;
         });
 
-        // Fake channel forward look
+        // Fake "forward from channel"
         const fakeForward = {
             forwardingScore: 999,
             isForwarded: true,
-            externalAdReply: {
-                title: "🌹 Juliet Travels Channel",
-                body: "Forwarded from channel",
-                mediaType: 1,
-                renderLargerThumbnail: true
+            forwardedNewsletterMessageInfo: {
+                newsletterJid: "120363401954819608@newsletter", 
+                newsletterName: "PRINCE FAVE MDX", 
+                serverMessageId: 123 
             }
         };
 
