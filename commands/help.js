@@ -126,6 +126,7 @@ async function helpCommand(sock, chatId, message) {
 • .clearsession
 • .antidelete on/off
 • .cleartmp
+• .settings
 • .scalc [expression]
 • .update
 • .setpp <reply img>

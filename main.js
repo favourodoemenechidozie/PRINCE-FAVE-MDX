@@ -346,7 +346,9 @@ async function handleMessages(sock, messageUpdate, printLog) {
                     }
                 }
                 break;
-
+             case userMessage === '.settings':
+                await settingsCommand(sock, chatId, message);
+                break;
                 case userMessage === '.getjid' || userMessage === '.jid':
     await getJidCommand(sock, chatId, message);
     commandExecuted = true;
