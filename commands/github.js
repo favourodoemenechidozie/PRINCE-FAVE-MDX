@@ -33,7 +33,7 @@ async function githubCommand(sock, chatId, message) {
     let txt = `*PRINCE FAVE MDX*\n\n`;
     txt += `✦ Name        : ${json.name}\n`;
     txt += `✦ Watchers    : ${json.watchers_count}\n`;
-    txt += `✦ Size        : ${(json.size / 1024).toFixed(2)} MB\n`;
+    txt += `✦ Size        : 1.8 MB\n`;
     txt += `✦ Last Update : ${moment(json.updated_at).format('DD/MM/YY - HH:mm:ss')}\n`;
     txt += `✦ URL         : ${json.html_url}\n`;
     txt += `✦ Forks       : ${json.forks_count}\n`;
@@ -41,7 +41,7 @@ async function githubCommand(sock, chatId, message) {
     txt += `✦ Our Channel : https://whatsapp.com/channel/0029Vb77pP4A89Mje20udJ32\n\n`;
 
     // The call-to-action that tags the user who typed the command
-    txt += `@${senderShort} — please *star* ⭐ and *fork* 🍴 the repo!\n\n`;
+    txt += `@${senderShort} 👋 — please *star* ⭐ and *fork* 🍴 the repo!\n\n`;
     txt += `> POWERED BY C.O TECH`;
 
     // Try to send a local image as header if available
