@@ -74,7 +74,7 @@ async function githubCommand(sock, chatId, message) {
       `You can visit the repo here:\n` +
       `https://github.com/favourodoemenechidozie/PRINCE-FAVE-MDX\n\n` +
       `Also follow our channel: https://whatsapp.com/channel/0029Vb77pP4A89Mje20udJ32\n\n` +
-      `— POWERED BY C.O TECH`;
+      `> POWERED BY C.O TECH`;
 
     await sock.sendMessage(chatId, { text: fallbackText }, { quoted: message, mentions: senderJid ? [senderJid] : [] });
   }
