@@ -33,7 +33,7 @@ async function githubCommand(sock, chatId, message) {
     txt += `> POWERED BY C.O TECH `;
 
     // Use the local asset image
-    const imgPath = path.join(__dirname, '../assets/👑 Heir to the throne 👑.jpg');
+    const imgPath = path.join(__dirname, './assets/princefave.png');
     const imgBuffer = fs.readFileSync(imgPath);
 
     await sock.sendMessage(chatId, { image: imgBuffer, caption: txt }, { quoted: message });
